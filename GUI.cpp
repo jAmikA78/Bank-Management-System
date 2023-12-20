@@ -27,17 +27,17 @@ void boxBorder();
 void window();
 void print_heading(const char title[]);
 void clearWindow();
-//        a. Add new branch.a
-//        b. Display Branch.a
-//        c. Search for Branch by ID.a
-//        a. Add new holder.a
-//        b. Remove a holder.a
-//        c. Display holder data.a
-//        d. Search for holder by Name.a
-//        e. Update Holder Information.a
-//        f. Display holders of a branch ordered by their balances.a
-//        g. Given a Branch id, display Holders in that Branch.
+//        a. Add new branch.
 //        h. Remove Branch.
+//        b. Display Branch.
+//        c. Search for Branch by ID.
+//        =====================================================
+//        a. Add new holder.
+//        b. Remove a holder.
+//        c. Display holder data.
+//        d. Search for holder by Name.
+//        e. Update Holder Information.
+//        f. display Holders of a Branch by id.
 
 /*------- Function Declaration -------*/
 void addBranch();
@@ -118,8 +118,10 @@ void main_window(){
                 addHolder();
                 break;
             case 5:
+                removeHolder();
                 break;
             case 6:
+                displayHolder();
                 break;
             case 7:
                 break;
@@ -185,6 +187,17 @@ void login(){
     }
 }
 
+//        a. Add new branch.                        done
+//        h. Remove Branch.                         done
+//        b. Display Branch.                        done
+//        c. Search for Branch by ID.               done
+//        =====================================================
+//        a. Add new holder.                        done
+//        b. Remove a holder.                       done
+//        c. Display holder data.                   done
+//        d. Search for holder by Name.             NOT DONE
+//        e. Update Holder Information.             NOT DONE
+//        f. display Holders of a Branch by id.     NOT DONE
 
 /*------- Menu -------*/
 
@@ -352,18 +365,78 @@ void addHolder() {
     SetColor(28);
     fclose(data);
 }
+
 void removeHolder(){
+    clearWindow();
+    SetColor(10);
+    print_heading(" -- Delete a holder by his id -- ");
+    char n_id[15];
+    int isFound = 0, print = 37;
+    gotoxy(37,10);
+    cout << "Enter ID: ";
+    fflush(stdin);
+    gets(n_id);
 
+//    FILE *data, *backup;
+//    data = fopen("info.txt","r");
+//    backup = fopen("temp.txt", "w");
+//    while(fread(&bd, sizeof(bd),1,data) == 1){
+//        if(strcmp(n_id, bd.id) == 0){
+//            fwrite(&bd,sizeof(bd),1,backup);
+//        }
+//    }
+////    fclose(data);
+////    fclose(backup);
+//    rename("info.txt","backup.txt");
+//    remove("temp.txt");
+    gotoxy(37,12);
+    if(l1.deleteHolder(n_id))
+        cout << "Information is deleted successfully.";
+    else
+        cout << "Holder doesnt exist.";
+    SetColor(28);
+    return;
 }
+
 void displayHolder(){
-
+    clearWindow();
+    SetColor(10);
+    print_heading(" -- Display Holder info -- ");
+    char n_id[15];
+    int isFound = 0;
+    gotoxy(37,10);
+    cout << "Enter ID: ";
+    fflush(stdin);
+    gets(n_id);
+    holder info = l1.searchHolderIDAndPrint(n_id);
+    if(info.id != "-1"){
+        gotoxy(37,12);
+        cout << "Information is Found.";
+        gotoxy(37,14);
+        cout << "ID: " << info.id;
+        gotoxy(37,15);
+        cout << "Name: " << info.name;
+        gotoxy(37,16);
+        cout << "Manager: " << info.address;
+        gotoxy(37,17);
+        cout << "Manager: " << info.branch_id;
+        gotoxy(37,18);
+        cout << "Manager: " << info.balance;
+    }else{
+        gotoxy(37,12);
+        cout << "Sorry, Information not found.";
+    }
+    SetColor(28);
 }
+
 void searchHolder(){
 
 }
+
 void updateHolder(){
 
 }
+
 void displayBranchHolders(){
 
 }
