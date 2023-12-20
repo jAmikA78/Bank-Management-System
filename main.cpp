@@ -47,7 +47,7 @@ int main() {
 }
 
 
-// function to useing system
+// function to using system
 void system_control() {
     // here is the main code of my system
 }
@@ -55,16 +55,16 @@ void system_control() {
 // function to restore old data base
 void restore_branches_data() {
     // Read input from branches database
-    ifstream branchs_data("branchs_data.txt");
-    if (!branchs_data) {
-        cerr << "Error opening branchs_data.txt" << endl;
+    ifstream branches_data("branches_data.txt");
+    if (!branches_data) {
+        cerr << "Error opening branches_data.txt" << endl;
         return;
     }
 
-    // Your code to process input from branchs_data goes here
+    // Your code to process input from branches_data goes here
 
-    // Close branchs_data
-    branchs_data.close();
+    // Close branches_data
+    branches_data.close();
 
     //_____________________________________________________________________
 }
@@ -82,19 +82,19 @@ void restore_holders_data() {
     holders_data.close();
 }
 
-// store the final data base
+// store the final database
 void store_branches_data() {
-    // Step 5: Store the output in branchs_data
-    ofstream branchs_data("branchs_data.txt");
-    if (!branchs_data) {
-        cerr << "Error opening branchs_data.txt for output" << endl;
+    // Step 5: Store the output in branches_data
+    ofstream branches_data("branches_data.txt");
+    if (!branches_data) {
+        cerr << "Error opening branches_data.txt for output" << endl;
         return; // Exit with an error code
     }
 
-    // Your code to write output to branchs_data goes here
+    // Your code to write output to branches_data goes here
 
-    // Close branchs_data
-    branchs_data.close();
+    // Close branches_data
+    branches_data.close();
 }
 
 void store_holders_data() {
