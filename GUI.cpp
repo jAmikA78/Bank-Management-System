@@ -211,8 +211,7 @@ void login() {
         system("cls");
         window();
         main_window();
-    }
-    else {
+    } else {
         system("cls");
         window();
         posXY(20, 18);
@@ -225,13 +224,13 @@ void first_window() {
 
     SetColor(28);
     int choice;
-    int x = 2;
+    int posX = 2, posY = 10;
     while (true) {
-        posXY(x, 8);
+        posXY(posX, posY += 2);
         cout << "1. Sign in as Administrator";
-        posXY(x, 9);
+        posXY(posX, posY += 2);
         cout << "2. Use as holder";
-        posXY(x, 20);
+        posXY(posX, 20);
         cout << "Enter your choice: ";
         cin >> choice;
         switch (choice) {
@@ -252,32 +251,32 @@ void addBranch() {
     clearWindow();
     SetColor(10);
     PageTitle(" -- Add Branch -- ");
-    int print = 37;
     char branch_id[15];
 
-    posXY(37, 10);
+    int posX = 45, posY = 10;
+    posXY(posX, posY += 2);
     cout << "ID: ";
     fflush(stdin);
     gets(branch_id);
 
     if (strlen(branch_id) != 4) {
-        posXY(print, 12);
+        posXY(posX, posY += 2);
         cout << "ID must be 4 characters";
     } else {
         if (List.searchBranchID(branch_id)) {
-            posXY(print, 12);
+            posXY(posX, posY += 2);
             cout << "Information already exist.";
-        }
-        else {
+        } else {
             fflush(stdin);
             strcpy(bd.id, branch_id);
-            posXY(print, 12);
+            posXY(posX, posY += 2);
             cout << "Name: ";
             gets(bd.name);
-            posXY(print, 14);
+            posXY(posX, posY += 2);
             cout << "Manager: ";
             gets(bd.manager);
-            posXY(print, 16);
+            SetColor(10);
+            posXY(posX, posY += 2);
             cout << "Information is added successfully.";
             List.insertatend(branch_id, bd.name, bd.manager);
         }
@@ -443,6 +442,7 @@ void searchHolderName() {
     }
     SetColor(28);
 }
+
 // NOT DONE YET
 void updateHolder() {
     clearWindow();
@@ -555,19 +555,16 @@ void posXY(int x, int y) {
 ///  ------------------------------------ Build Window
 void window() {
     boxBorder();
-    SetColor(12);
-    posXY(35, 2);
+    SetColor(11);
+    posXY(35, 3);
     cout << "Bank Management System";
-    SetColor(100);
-    posXY(28, 3);
-    cout << "=======================================";
 }
 
 ///  ------------------------------------ Page Header
 void PageTitle(const string &title) {
     SetColor(10);
     SetColorAndBackground(3, 0);
-    posXY(45, 8);
+    posXY(53, 8);
     cout << title;
     SetColorAndBackground(15, 0);
 }
