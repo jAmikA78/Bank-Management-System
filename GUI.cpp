@@ -169,7 +169,7 @@ void main_window2() {
                 clearWindow();
                 system("cls");
                 window();
-                login();
+                main_window2();
                 break;
             default:
                 exit(0);
