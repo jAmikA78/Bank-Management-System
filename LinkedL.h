@@ -246,7 +246,7 @@ public:
     }
 
     // Update Holder Information.
-    void UpdateHolder(string id, string name, string address, string branch_id, string balance){
+    bool UpdateHolder(string id, string name, string address, string branch_id, string balance){
         deleteHolder(id);
         insertSorted(id, name, address, branch_id, balance);
     }
