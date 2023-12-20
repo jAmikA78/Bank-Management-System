@@ -12,6 +12,10 @@ struct Branch{
     char name[30];
     char manager[50];
 }bd;
+struct Holder{
+    char id[30], name[30], address[30], branch_id[30];
+    char balance[30];
+}hd;
 LinkedList l1;
 
 /*------- Console Management Function -------*/
@@ -111,6 +115,7 @@ void main_window(){
                 removeBranch();
                 break;
             case 4:
+                addHolder();
                 break;
             case 5:
                 break;
@@ -217,7 +222,7 @@ void addBranch(){
                 fflush(stdin);
                 strcpy(bd.id,n_id);
                 gotoxy(print,12);
-                cout << "First Name: ";
+                cout << "Name: ";
                 gets(bd.name);
                 gotoxy(print,14);
                 cout << "Manager: ";
@@ -260,6 +265,7 @@ void displayBranch() {
     SetColor(28);
     return;
 }
+
 void removeBranch(){ // this one needs to be handled correctly in the file (handled in the linked list)
     clearWindow();
     SetColor(10);
@@ -291,8 +297,60 @@ void removeBranch(){ // this one needs to be handled correctly in the file (hand
     SetColor(28);
     return;
 }
-void addHolder() {
 
+void addHolder() {
+    clearWindow();
+    string id, name, manager;
+    SetColor(10);
+    print_heading(" -- Add Holder -- ");
+    int print = 37;
+    char n_id[15];
+    int isFound = 0;
+    gotoxy(37,10);
+    cout << "ID: ";
+    fflush(stdin);
+    gets(n_id);
+    FILE *data;
+    data = fopen("info.txt","a+");
+
+    while(fread(&bd,sizeof(bd),1,data) == 1){ // check if id already exist
+        if(strcmp(n_id,bd.id) == 0){
+            isFound = 1;
+            gotoxy(37,12);
+            cout << "ID already exist.";
+            break;
+        }
+    }
+    if(isFound == 0){
+        if(data == NULL){
+            MessageBox(0,"Error in Opening file.\nMake sure file is not write protected.","Warning",0);
+        }else{
+            fflush(stdin);
+            strcpy(hd.id,n_id);
+            gotoxy(print,12);
+            cout << "Name: ";
+            gets(hd.name);
+            gotoxy(print,14);
+            cout << "Address: ";
+            gets(hd.address);
+            gotoxy(print,16);
+            cout << "Branch ID: ";
+            gets(hd.branch_id);
+            gotoxy(print,18);
+            if(!l1.search_branch(hd.branch_id)){
+                cout << "branch id doesnt exist.";
+            }
+            else {
+                cout << "Balance: ";
+                gets(hd.balance);
+                gotoxy(print, 20);
+                cout << "Information is added successfully.";
+                l1.insertSorted(n_id, hd.name, hd.address, hd.branch_id, hd.balance);
+            }
+        }
+    }
+    SetColor(28);
+    fclose(data);
 }
 void removeHolder(){
 
