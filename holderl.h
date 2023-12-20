@@ -192,28 +192,27 @@ public:
 //        cout << "=================================\n";
     }
 
-    // Remove a branch
-    void RemoveBranchAndHolders(string branch_id) {
-        if (deleteBranch(branch_id)) {
-            holder *current = head;
-            holder *prev = nullptr;
+    // Remove all branch holders
+    void remove_all_holders(string branch_id) {
 
-            while (current != nullptr) {
-                if (current->branch_id == branch_id) {
-                    // If it's the head node, update head
-                    if (prev == nullptr)
-                        head = current->next;
-                    else
-                        prev->next = current->next;
+        holder *current = head;
+        holder *prev = nullptr;
 
-                    holder *temp = current;
-                    current = current->next;
-                    delete temp;
-                } else
-                    prev = current, current = current->next;
-            }
-        } else
-            cout << "This branch id doesn't exist\n";
+        while (current != nullptr) {
+            if (current->branch_id == branch_id) {
+                // If it's the head node, update head
+                if (prev == nullptr)
+                    head = current->next;
+                else
+                    prev->next = current->next;
+
+                holder *temp = current;
+                current = current->next;
+                delete temp;
+            } else
+                prev = current, current = current->next;
+        }
+
     }
 
 };

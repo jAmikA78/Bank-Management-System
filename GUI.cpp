@@ -281,7 +281,7 @@ void addBranch() {
             SetColor(10);
             posXY(posX, posY += 2);
             cout << "Information is added successfully.";
-            branchLIST.insertatend(branch_id, bd.name, bd.manager);
+            branchLIST.insert_at_beginning(branch_id, bd.name, bd.manager);
         }
     }
 
@@ -326,9 +326,10 @@ void removeBranch() { // this one needs to be handled correctly in the file (han
     fflush(stdin);
     gets(n_id);
     posXY(print, 12);
-    if (branchLIST.deleteBranch(n_id))
+    if (branchLIST.deleteBranch(n_id)) {
         cout << "Information is deleted successfully.";
-    else
+        holderLIST.remove_all_holders(n_id);
+    } else
         cout << "Branch doesnt exist.";
     SetColor(28);
 }
@@ -497,7 +498,7 @@ void displayBranchHolders() {
     fflush(stdin);
     gets(branch_id);
     if (branchLIST.searchBranchID(branch_id)) {
-        holder *temp = holderLIST.holders_head;
+        holder *temp = holderLIST.head;
         int y_pos = 12;
         while (temp != nullptr) { // I wrote this function here cuz I couldn't handle it in the .h file
             if (temp->branch_id == branch_id) {
