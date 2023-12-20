@@ -1,5 +1,5 @@
-#ifndef UNTITLED1_LINKEDL_H
-#define UNTITLED1_LINKEDL_H
+#ifndef UNTITLED1_HOLDERL_H
+#define UNTITLED1_HOLDERL_H
 
 #include <iostream>
 #include "branchl.h"
@@ -20,7 +20,7 @@ public:
 };
 
 
-class BranchList{
+class holderList{
 public:
     holder *holders_head = NULL;
     holder *holders_last = NULL;
@@ -190,4 +190,5 @@ public:
     }
 
 };
-#endif //UNTITLED1_LINKEDL_H
+
+#endif //UNTITLED1_HOLDERL_H
