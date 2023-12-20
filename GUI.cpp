@@ -80,7 +80,7 @@ void main_window(){
         gotoxy(x,9);
         cout << "2. Display Branch";
         gotoxy(x,10);
-        cout << "3. Search for Branch by ID";
+        cout << "3. Remove Branch";
         gotoxy(x,11);
         cout << "4. Add new holder";
         gotoxy(x,12);
@@ -96,9 +96,7 @@ void main_window(){
         gotoxy(x,17);
         cout << "10. display Holders of a Branch by id";
         gotoxy(x,18);
-        cout << "11. Remove Branch";
-        gotoxy(x,19);
-        cout << "12. Logout";
+        cout << "11. Logout";
         gotoxy(x,20);
         cout << "Enter your choice: ";
         cin >> choice;
@@ -110,6 +108,7 @@ void main_window(){
                 displayBranch();
                 break;
             case 3:
+                removeBranch();
                 break;
             case 4:
                 break;
@@ -261,8 +260,36 @@ void displayBranch() {
     SetColor(28);
     return;
 }
-void searchBranch(){
+void removeBranch(){ // this one needs to be handled correctly in the file (handled in the linked list)
+    clearWindow();
+    SetColor(10);
+    print_heading(" -- Delete a branch by its id -- ");
+    char n_id[15];
+    int isFound = 0, print = 37;
+    gotoxy(37,10);
+    cout << "Enter ID: ";
+    fflush(stdin);
+    gets(n_id);
 
+//    FILE *data, *backup;
+//    data = fopen("info.txt","r");
+//    backup = fopen("temp.txt", "w");
+//    while(fread(&bd, sizeof(bd),1,data) == 1){
+//        if(strcmp(n_id, bd.id) == 0){
+//            fwrite(&bd,sizeof(bd),1,backup);
+//        }
+//    }
+////    fclose(data);
+////    fclose(backup);
+//    rename("info.txt","backup.txt");
+//    remove("temp.txt");
+    gotoxy(37,12);
+    if(l1.deleteBranch(n_id))
+        cout << "Information is deleted successfully.";
+    else
+        cout << "Branch doesnt exist.";
+    SetColor(28);
+    return;
 }
 void addHolder() {
 
@@ -280,9 +307,6 @@ void updateHolder(){
 
 }
 void displayBranchHolders(){
-
-}
-void removeBranch(){
 
 }
 
