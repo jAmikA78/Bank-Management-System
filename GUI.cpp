@@ -2,7 +2,8 @@
 #include<cstdlib>
 #include <conio.h>
 #include <windows.h>
-#include "LinkedL.h"
+#include "branchl.h"
+#include "holderl.h"
 
 using namespace std;
 
@@ -12,7 +13,9 @@ struct Branch {
 struct Holder {
     char id[30], name[30], address[30], branch_id[30], balance[30];
 } hd;
-LinkedList List;
+
+branchList branchLIST;
+holderList holderLIST;
 
 ///  ------------------------------------ Functions Declaration
 void SetColor(int FontColor);
@@ -263,7 +266,7 @@ void addBranch() {
         posXY(posX, posY += 2);
         cout << "ID must be 4 characters";
     } else {
-        if (List.searchBranchID(branch_id)) {
+        if (branchLIST.searchBranchID(branch_id)) {
             posXY(posX, posY += 2);
             cout << "Information already exist.";
         } else {
@@ -278,7 +281,7 @@ void addBranch() {
             SetColor(10);
             posXY(posX, posY += 2);
             cout << "Information is added successfully.";
-            List.insertatend(branch_id, bd.name, bd.manager);
+            branchLIST.insertatend(branch_id, bd.name, bd.manager);
         }
     }
 
@@ -295,7 +298,7 @@ void displayBranch() {
     cout << "Enter ID: ";
     fflush(stdin);
     gets(branch_id);
-    branch info = List.searchBranchAndPrint(branch_id);
+    branch info = branchLIST.searchBranchAndPrint(branch_id);
     if (info.id != "-1") {
         posXY(print, 12);
         cout << "Information is Found.";
@@ -323,7 +326,7 @@ void removeBranch() { // this one needs to be handled correctly in the file (han
     fflush(stdin);
     gets(n_id);
     posXY(print, 12);
-    if (List.deleteBranch(n_id))
+    if (branchLIST.deleteBranch(n_id))
         cout << "Information is deleted successfully.";
     else
         cout << "Branch doesnt exist.";
@@ -339,7 +342,7 @@ void addHolder() {
     cout << "ID: ";
     fflush(stdin);
     gets(hd.id);
-    if (List.searchHolderID(hd.id)) {
+    if (holderLIST.searchHolderID(hd.id)) {
         fflush(stdin);
         strcpy(hd.id, hd.id);
         posXY(print, 12);
@@ -352,14 +355,14 @@ void addHolder() {
         cout << "Branch ID: ";
         gets(hd.branch_id);
         posXY(print, 18);
-        if (!List.search_branch(hd.branch_id))
+        if (!branchLIST.search_branch(hd.branch_id))
             cout << "branch holder_id doesnt exist.";
         else {
             cout << "Balance: ";
             gets(hd.balance);
             posXY(print, 20);
             cout << "Information is added successfully.";
-            List.insertSorted(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
+            holderLIST.insertSorted(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
         }
     }
     SetColor(28);
@@ -376,7 +379,7 @@ void removeHolder() {
     fflush(stdin);
     gets(holder_id);
     posXY(print, 12);
-    if (List.deleteHolder(holder_id)) // O(holder)
+    if (holderLIST.deleteHolder(holder_id)) // O(holder)
         cout << "Information is deleted successfully.";
     else
         cout << "Holder doesnt exist.";
@@ -392,7 +395,7 @@ void displayHolder() {
     cout << "Enter ID: ";
     fflush(stdin);
     gets(n_id);
-    holder info = List.searchHolderIDAndPrint(n_id); // O(n)
+    holder info = holderLIST.searchHolderIDAndPrint(n_id); // O(n)
     if (info.id != "-1") {
         posXY(37, 12);
         cout << "Information is Found.";
@@ -422,7 +425,7 @@ void searchHolderName() {
     cout << "Enter Name: ";
     fflush(stdin);
     gets(n_name);
-    holder info = List.searchHolderNameAndPrint(n_name); // O(n)
+    holder info = holderLIST.searchHolderNameAndPrint(n_name); // O(n)
     if (info.id != "-1") {
         posXY(37, 12);
         cout << "Information is Found.";
@@ -454,7 +457,7 @@ void updateHolder() {
     cout << "ID: ";
     fflush(stdin);
     gets(n_id);
-    if (List.searchHolderID(n_id)) { // O(holder)
+    if (holderLIST.searchHolderID(n_id)) { // O(holder)
         fflush(stdin);
         strcpy(hd.id, n_id);
         posXY(print, 12);
@@ -467,13 +470,13 @@ void updateHolder() {
         cout << "New Branch ID: ";
         gets(hd.branch_id);
         posXY(print, 18);
-        if (!List.search_branch(hd.branch_id)) { // O(branch)
+        if (!branchLIST.search_branch(hd.branch_id)) { // O(branch)
             cout << "branch id doesnt exist.";
         } else {
             cout << "New Balance: ";
             gets(hd.balance);
             posXY(print, 20);
-            List.UpdateHolder(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
+            holderLIST.UpdateHolder(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
             cout << "Information is updated successfully.";
         }
 
@@ -493,8 +496,8 @@ void displayBranchHolders() {
     cout << "Enter Branch ID: ";
     fflush(stdin);
     gets(branch_id);
-    if (List.searchBranchID(branch_id)) {
-        holder *temp = List.holders_head;
+    if (branchLIST.searchBranchID(branch_id)) {
+        holder *temp = holderLIST.holders_head;
         int y_pos = 12;
         while (temp != nullptr) { // I wrote this function here cuz I couldn't handle it in the .h file
             if (temp->branch_id == branch_id) {
