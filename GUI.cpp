@@ -202,7 +202,7 @@ void login(){
 //        c. Display holder data.                   done
 //        d. Search for holder by Name.             done
 //        e. Update Holder Information.             NOT DONE
-//        f. display Holders of a Branch by id.     NOT DONE
+//        f. display Holders of a Branch by id.     done
 
 void addBranch(){
     clearWindow();
