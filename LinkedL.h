@@ -8,12 +8,12 @@ using namespace std;
 class holder{
 public:
     string id, name, address, branch_id;
-    int balance;
+    string balance;
     holder *next;
 
     holder(){
         id = name = address = branch_id = "";
-        balance = 0;
+        balance = "";
         next = NULL;
     }
 };
@@ -146,7 +146,7 @@ public:
     }
 
     // Add a holder to a branch
-    void insertSorted(string id, string name, string address, string branch_id, int balance) {
+    void insertSorted(string id, string name, string address, string branch_id, string balance) {
         holder *newnode = new holder();
         newnode->id = id;
         newnode->name = name;
@@ -177,6 +177,16 @@ public:
         }
         return false;
     }
+    holder searchHolderNameAndPrint(string holder_name) {
+        holder *temp = holders_head;
+        while (temp != NULL) {
+            if (temp->name == holder_name) return *temp;
+            else temp = temp->next;
+        }
+        holder notFound;
+        notFound.id = "-1";
+        return notFound;
+    }
 
     bool searchHolderID(string holder_id) {
         holder *temp = holders_head;
@@ -186,10 +196,20 @@ public:
         }
         return false;
     }
+    holder searchHolderIDAndPrint(string holder_id) {
+        holder *temp = holders_head;
+        while (temp != NULL) {
+            if (temp->id == holder_id) return *temp;
+            else temp = temp->next;
+        }
+        holder notFound;
+        notFound.id = "-1";
+        return notFound;
+    }
 
     // Remove a holder.
-    void deleteHolder(string holder_id) {
-        if (isEmptyHolders()) cout << "THERE IS NO HOLDERS TO BE DELETED\n";
+    bool deleteHolder(string holder_id) {
+        if (isEmptyHolders()) return false;
         else if (searchHolderID(holder_id)) {
             holder *temp1 = holders_head;
             holder *prev = NULL;
@@ -209,9 +229,9 @@ public:
                 prev->next = temp1->next;
                 delete (temp1);
             }
-            cout << "HOLDER IS DELETED SUCCESSFULLY\n";
+            return true;
         }
-        else cout << "HOLDER TO BE DELETED IS NOT FOUND\n";
+        else return false;
     }
 
     // Display holder data.
@@ -226,7 +246,7 @@ public:
     }
 
     // Update Holder Information.
-    void UpdateHolder(string id, string name, string address, string branch_id, int balance){
+    void UpdateHolder(string id, string name, string address, string branch_id, string balance){
         deleteHolder(id);
         insertSorted(id, name, address, branch_id, balance);
     }
