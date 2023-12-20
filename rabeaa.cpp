@@ -107,7 +107,7 @@ void main_window(){
                 addBranch();
                 break;
             case 2:
-                find_info();
+                displayBranch();
                 break;
             case 3:
                 break;
@@ -233,8 +233,33 @@ void addBranch(){
     fclose(data);
     return;
 }
-void displayBranch() {
 
+void displayBranch() {
+    clearWindow();
+    SetColor(10);
+    print_heading(" -- Display Branch info -- ");
+    char n_id[15];
+    int isFound = 0;
+    gotoxy(37,10);
+    cout << "Enter ID: ";
+    fflush(stdin);
+    gets(n_id);
+    branch info = l1.searchBranchAndPrint(n_id);
+    if(info.id != "-1"){
+        gotoxy(37,12);
+        cout << "Information is Found.";
+        gotoxy(37,14);
+        cout << "ID: " << info.id;
+        gotoxy(37,15);
+        cout << "Name: " << info.name;
+        gotoxy(37,16);
+        cout << "Manager: " << info.manager;
+    }else{
+        gotoxy(37,12);
+        cout << "Sorry, Information not found.";
+    }
+    SetColor(28);
+    return;
 }
 void searchBranch(){
 
@@ -259,57 +284,6 @@ void displayBranchHolders(){
 }
 void removeBranch(){
 
-}
-
-void add_branch(){
-    clearWindow();
-    SetColor(10);
-    print_heading(" -- Branch Editing -- ");
-    int print = 37;
-    char n_id[15];
-    int isFound = 0;
-    gotoxy(37,10);
-    cout << "ID: ";
-    fflush(stdin);
-    gets(n_id);
-    FILE *data;
-    data = fopen("info.txt","a+");
-    if(strlen(n_id) != 9){
-        gotoxy(37,12);
-        cout << "ID must be 9 characters";
-    }
-    else{
-        while(fread(&bd,sizeof(bd),1,data) == 1){
-            if(strcmp(n_id,bd.id) == 0){
-                isFound = 1;
-                gotoxy(37,12);
-                cout << "Information already exist.";
-                break;
-            }
-        }
-        if(isFound == 0){
-            if(data == NULL){
-                MessageBox(0,"Error in Opening file.\nMake sure file is not write protected.","Warning",0);
-
-            }else{
-                fflush(stdin);
-                strcpy(bd.id, n_id);
-                gotoxy(print,12);
-                cout << "Name: ";
-                gets(bd.name);
-                gotoxy(print,14);
-                gotoxy(print,16);
-                cout << "Manager: ";
-                gets(bd.manager);
-                fwrite(&bd,sizeof(bd),1,data);
-                gotoxy(40,20);
-                cout << "Information is added successfully.";
-            }
-        }
-    }
-    SetColor(28);
-    fclose(data);
-    return;
 }
 
 
@@ -365,17 +339,16 @@ void display(){
             break;
         }
     }
+    l1.search_branch(n_id);
     if(isFound == 1){
         gotoxy(37,12);
         cout << "Information is Found.";
         gotoxy(37,14);
         cout << "ID: " << bd.id;
         gotoxy(37,15);
-//        cout << "Name: " << bd.name << " " << bd.lName;
+//        cout << "Name: " << bd.name;
         gotoxy(37,16);
-        cout << "Address: " << bd.manager;
-        gotoxy(37,19);
-//        cout << "Phone No: " << bd.phone_no;
+        cout << "Manager: " << bd.manager;
     }else{
         gotoxy(37,12);
         cout << "Sorry, Information not found.";
