@@ -134,6 +134,43 @@ void main_window() {
         }
     }
 }
+void main_window2() {
+    SetColor(28);
+    int choice;
+    int x = 2;
+    while (true) {
+        posXY(x, 8);
+        cout << "1. Display holder data";
+        posXY(x, 9);
+        cout << "2. Search for holder by Name";
+        posXY(x, 10);
+        cout << "3. Update Holder Information";
+        posXY(x, 11);
+        cout << "4. Logout";
+        posXY(x, 20);
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                displayHolder();
+                break;
+            case 2:
+                searchHolderName();
+                break;
+            case 3:
+                updateHolder();
+                break;
+            case 4:
+                clearWindow();
+                system("cls");
+                window();
+                login();
+                break;
+            default:
+                exit(0);
+        }
+    }
+}
 
 ///  ------------------------------------ Welcome Page
 void login() {
@@ -142,7 +179,8 @@ void login() {
     int x = 15, y = 16;
     int username;
     char password[25];
-    char mainPassword[25] = "123456";
+    char adminPassword[25] = "123456";
+    char holderPassword[25] = "123";
     posXY(15, 12);
     cout << "The database is password protected.";
     posXY(15, 13);
@@ -163,11 +201,17 @@ void login() {
     } while (password[p - 1] != '\r');
     password[p - 1] = '\0';
 
-    if (strcmp(mainPassword, password) == 0) {
+    if (strcmp(adminPassword, password) == 0) {
         system("cls");
         window();
         main_window();
-    } else {
+    }
+    else if(strcmp(holderPassword, password) == 0){
+        system("cls");
+        window();
+        main_window2();
+    }
+    else {
         system("cls");
         window();
         posXY(20, 18);
