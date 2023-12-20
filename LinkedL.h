@@ -45,6 +45,13 @@ public:
             return false;
     }
 
+    branch getHeadBranch(){
+        return *branch_head;
+    }
+    holder getHeadHolder(){
+        return *holders_head;
+    }
+
     // Add a branch
     void insertatend(string id, string name, string manager)
     {
@@ -101,6 +108,15 @@ public:
         branch notFound;
         notFound.id = "-1";
         return notFound;
+    }
+    bool searchBranchID(string branch_id) {
+        branch *temp = branch_head;
+
+        while (temp != NULL) {
+            if (temp->id == branch_id) return true;
+            else temp = temp->next;
+        }
+        return false;
     }
 
     // delete a branch
@@ -214,6 +230,10 @@ public:
             holder *temp1 = holders_head;
             holder *prev = NULL;
             if (holders_head->id == holder_id) {
+                if(holders_head->next == NULL){
+                    holders_head = NULL;
+
+                }
                 holders_head = holders_head->next;
                 delete temp1;
             }
@@ -238,11 +258,14 @@ public:
     void displayHoldersAll() {
         holder *temp = holders_head;
         while (temp != NULL) {
-            cout << "Holder ID: " << temp->id << " Holder's name: " << temp->name << " Holder's manager: " << temp->address << " Balance: " << temp->balance << "\nbelongs to the branch with id: " << temp->branch_id << '\n';
+            cout << "Holder ID: " << temp->id << " Holder's name: " << temp->name << " Holder's manager: "
+            << temp->address << " Balance: " << temp->balance << "\nbelongs to the branch with id: "
+            << temp->branch_id << '\n';
+
             temp = temp->next;
-            cout << "=================================\n";
+//            cout << "=================================\n";
         }
-        cout << "=================================\n";
+//        cout << "=================================\n";
     }
 
     // Update Holder Information.
@@ -258,11 +281,13 @@ public:
     void displayBranchHolders(string branch_id){
         holder *temp = holders_head;
         while (temp != NULL) {
-            if(temp->branch_id == branch_id)
-                cout << "Holder ID: " << temp->id << " Holder's name: " << temp->name << " Holder's manager: " << temp->address << " Balance: $" << temp->balance << '\n';
+            if(temp->branch_id == branch_id) {
+                cout << "*Holder ID: " << temp->id << "| Holder's name: " << temp->name << "| Holder's manager: "
+                     << temp->address << "| Balance: $" << temp->balance << '\n';
+            }
             temp = temp->next;
         }
-        cout << "=================================\n";
+//        cout << "=================================\n";
     }
 
     // Remove a branch
