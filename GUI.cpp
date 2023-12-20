@@ -186,7 +186,7 @@ void login() {
     SetColor(1028);
     int x = 15, y = 16;
     char password[25];
-    char adminPassword[25] = "123456";
+    char adminPassword[25] = "1";
     posXY(15, 12);
     cout << "The database is password protected.";
     posXY(15, 13);
