@@ -7,14 +7,12 @@
 
 using namespace std;
 
-struct citizen{
-    char NID[15];
-    char fName[30];
-    char lName [30];
-    char address[50];
-    char phone_no[15];
+struct Branch{
+    char id[15];
+    char name[30];
+    char manager[50];
 }bd;
-
+LinkedList l1;
 
 /*------- Console Management Function -------*/
 void SetColor(int ForgC);
@@ -60,7 +58,7 @@ void main_window();
 /*------- Main Function -------*/
 int main(){
     ClearConsoleToColors(15,15);
-    SetConsoleTitle("People's Information: Database Software");
+    SetConsoleTitle("Bank Management System");
     window();
     login();
     return 0;
@@ -96,15 +94,17 @@ void main_window(){
         gotoxy(x,16);
         cout << "9. Display branch holders ordered";
         gotoxy(x,17);
-        cout << "10. Given a Branch id, display Holders in that Branch";
+        cout << "10. display Holders of a Branch by id";
         gotoxy(x,18);
         cout << "11. Remove Branch";
+        gotoxy(x,19);
+        cout << "12. Logout";
         gotoxy(x,20);
         cout << "Enter your choice: ";
         cin >> choice;
         switch(choice){
             case 1:
-                add_branch();
+                addBranch();
                 break;
             case 2:
                 find_info();
@@ -128,7 +128,7 @@ void main_window(){
             case 11:
                 break;
 
-            case 3: // this one for quit
+            case 12: // this one for quit
                 clearWindow();
                 system("cls");
                 window();
@@ -183,6 +183,84 @@ void login(){
 
 
 /*------- Menu -------*/
+
+void addBranch(){
+    clearWindow();
+    string id, name, manager;
+    SetColor(10);
+    print_heading(" -- Add Branch -- ");
+    int print = 37;
+    char n_id[15];
+    int isFound = 0;
+    gotoxy(37,10);
+    cout << "ID: ";
+    fflush(stdin);
+    gets(n_id);
+    FILE *data;
+    data = fopen("info.txt","a+");
+    if(strlen(n_id) != 9){
+        gotoxy(37,12);
+        cout << "ID must be 9 characters";
+    }
+    else{
+        while(fread(&bd,sizeof(bd),1,data) == 1){
+            if(strcmp(n_id,bd.id) == 0){
+                isFound = 1;
+                gotoxy(37,12);
+                cout << "Information already exist.";
+                break;
+            }
+        }
+        if(isFound == 0){
+            if(data == NULL){
+                MessageBox(0,"Error in Opening file.\nMake sure file is not write protected.","Warning",0);
+            }else{
+                fflush(stdin);
+                strcpy(bd.id,n_id);
+                gotoxy(print,12);
+                cout << "First Name: ";
+                gets(bd.name);
+                gotoxy(print,14);
+                cout << "Manager: ";
+                gets(bd.manager);
+                gotoxy(print,16);
+                cout << "Information is added successfully.";
+                l1.insertatend(n_id, bd.name, bd.manager);
+            }
+        }
+    }
+    SetColor(28);
+    fclose(data);
+    return;
+}
+void displayBranch() {
+
+}
+void searchBranch(){
+
+}
+void addHolder() {
+
+}
+void removeHolder(){
+
+}
+void displayHolder(){
+
+}
+void searchHolder(){
+
+}
+void updateHolder(){
+
+}
+void displayBranchHolders(){
+
+}
+void removeBranch(){
+
+}
+
 void add_branch(){
     clearWindow();
     SetColor(10);
@@ -202,7 +280,7 @@ void add_branch(){
     }
     else{
         while(fread(&bd,sizeof(bd),1,data) == 1){
-            if(strcmp(n_id,bd.NID) == 0){
+            if(strcmp(n_id,bd.id) == 0){
                 isFound = 1;
                 gotoxy(37,12);
                 cout << "Information already exist.";
@@ -215,19 +293,14 @@ void add_branch(){
 
             }else{
                 fflush(stdin);
-                strcpy(bd.NID,n_id);
+                strcpy(bd.id, n_id);
                 gotoxy(print,12);
-                cout << "First Name: ";
-                gets(bd.fName);
+                cout << "Name: ";
+                gets(bd.name);
                 gotoxy(print,14);
-                cout << "Last Name: ";
-                gets(bd.lName);
                 gotoxy(print,16);
-                cout << "Address: ";
-                gets(bd.address);
-                gotoxy(print,18);
-                cout << "Phone Number: ";
-                gets(bd.phone_no);
+                cout << "Manager: ";
+                gets(bd.manager);
                 fwrite(&bd,sizeof(bd),1,data);
                 gotoxy(40,20);
                 cout << "Information is added successfully.";
@@ -253,7 +326,7 @@ void find_info(){
     FILE *data;
     data = fopen("info.txt","r");
     while(fread(&bd,sizeof(bd),1,data) == 1){
-        if(strcmp(n_id,bd.NID) == 0){
+        if(strcmp(n_id,bd.id) == 0){
             isFound = 1;
             break;
         }
@@ -262,9 +335,8 @@ void find_info(){
         gotoxy(37,12);
         cout << "The Information is Found.";
         gotoxy(37,14);
-        cout << "ID: " << bd.NID;
+        cout << "ID: " << bd.id;
         gotoxy(37,15);
-        cout << "Name: " << bd.fName << " " << bd.lName;
     }else{
         gotoxy(37,12);
         cout << "Sorry, Information not found.";
@@ -288,7 +360,7 @@ void display(){
     FILE *data;
     data = fopen("info.txt","r");
     while(fread(&bd,sizeof(bd),1,data) == 1){
-        if(strcmp(n_id,bd.NID) == 0){
+        if(strcmp(n_id,bd.id) == 0){
             isFound = 1;
             break;
         }
@@ -297,13 +369,13 @@ void display(){
         gotoxy(37,12);
         cout << "Information is Found.";
         gotoxy(37,14);
-        cout << "ID: " << bd.NID;
+        cout << "ID: " << bd.id;
         gotoxy(37,15);
-        cout << "Name: " << bd.fName << " " << bd.lName;
+//        cout << "Name: " << bd.name << " " << bd.lName;
         gotoxy(37,16);
-        cout << "Address: " << bd.address;
+        cout << "Address: " << bd.manager;
         gotoxy(37,19);
-        cout << "Phone No: " << bd.phone_no;
+//        cout << "Phone No: " << bd.phone_no;
     }else{
         gotoxy(37,12);
         cout << "Sorry, Information not found.";
@@ -327,23 +399,23 @@ void edit_info(){
     FILE *data;
     data = fopen("info.txt","r+");
     while(fread(&bd, sizeof(bd),1,data) == 1){
-        if(strcmp(n_id, bd.NID) == 0){
+        if(strcmp(n_id, bd.id) == 0){
             fflush(stdin);
             gotoxy(print,12);
             cout << "ID: ";
-            gets(bd.NID);
+            gets(bd.id);
             gotoxy(print,13);
             cout << "First Name: ";
-            gets(bd.fName);
+            gets(bd.name);
             gotoxy(print,14);
             cout << "Name: ";
-            gets(bd.lName);
+//            gets(bd.lName);
             gotoxy(print,15);
             cout << "Address: ";
-            gets(bd.address);
+            gets(bd.manager);
             gotoxy(print,16);
             cout << "Phone Number: ";
-            gets(bd.phone_no);
+//            gets(bd.phone_no);
             fseek(data,-sizeof(bd), SEEK_CUR);
             fwrite(&bd,sizeof(bd), 1, data);
             gotoxy(40,20);
@@ -376,7 +448,7 @@ void delete_info(){
     data = fopen("info.txt","r");
     backup = fopen("temp.txt", "w");
     while(fread(&bd, sizeof(bd),1,data) == 1){
-        if(strcmp(n_id, bd.NID) == 0){
+        if(strcmp(n_id, bd.id) == 0){
             fwrite(&bd,sizeof(bd),1,backup);
         }
     }
