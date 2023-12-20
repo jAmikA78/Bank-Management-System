@@ -55,7 +55,11 @@ void removeBranch();
 
 void login();
 
+void first_window();
+
 void main_window();
+
+void main_window2();
 
 
 /*------- Main Function -------*/
@@ -63,7 +67,7 @@ int main() {
     ClearConsoleToColors(0, 0);
     SetConsoleTitle("Bank Management System - BMS");
     window();
-    login();
+    first_window();
     return 0;
 }
 
@@ -127,13 +131,14 @@ void main_window() {
                 clearWindow();
                 system("cls");
                 window();
-                login();
+                first_window();
                 break;
             default:
                 exit(0);
         }
     }
 }
+
 void main_window2() {
     SetColor(28);
     int choice;
@@ -144,7 +149,7 @@ void main_window2() {
         posXY(x, 9);
         cout << "2. Search for holder by Name";
         posXY(x, 10);
-        cout << "3. Update Holder Information";
+        cout << "3. Add new holder";
         posXY(x, 11);
         cout << "4. Logout";
         posXY(x, 20);
@@ -158,7 +163,7 @@ void main_window2() {
                 searchHolderName();
                 break;
             case 3:
-                updateHolder();
+                addHolder();
                 break;
             case 4:
                 clearWindow();
@@ -174,13 +179,14 @@ void main_window2() {
 
 ///  ------------------------------------ Welcome Page
 void login() {
+    ClearConsoleToColors(0, 0);
+    SetConsoleTitle("Bank Management System - BMS");
+    window();
     boxBorder();
     SetColor(1028);
     int x = 15, y = 16;
-    int username;
     char password[25];
     char adminPassword[25] = "123456";
-    char holderPassword[25] = "123";
     posXY(15, 12);
     cout << "The database is password protected.";
     posXY(15, 13);
@@ -206,17 +212,38 @@ void login() {
         window();
         main_window();
     }
-    else if(strcmp(holderPassword, password) == 0){
-        system("cls");
-        window();
-        main_window2();
-    }
     else {
         system("cls");
         window();
         posXY(20, 18);
         cout << "Invalid Password. Try again." << endl;
         login();
+    }
+}
+
+void first_window() {
+
+    SetColor(28);
+    int choice;
+    int x = 2;
+    while (true) {
+        posXY(x, 8);
+        cout << "1. Sign in as Administrator";
+        posXY(x, 9);
+        cout << "2. Use as holder";
+        posXY(x, 20);
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                login();
+                break;
+            case 2:
+                main_window2();
+                break;
+            default:
+                exit(0);
+        }
     }
 }
 
@@ -240,7 +267,8 @@ void addBranch() {
         if (List.searchBranchID(branch_id)) {
             posXY(print, 12);
             cout << "Information already exist.";
-        } else {
+        }
+        else {
             fflush(stdin);
             strcpy(bd.id, branch_id);
             posXY(print, 12);
@@ -415,7 +443,6 @@ void searchHolderName() {
     }
     SetColor(28);
 }
-
 // NOT DONE YET
 void updateHolder() {
     clearWindow();
@@ -582,7 +609,6 @@ void boxBorder() {
 
     for (int i = 1; i < 90; i++) { posXY(i, 6), wcout << (wchar_t) 205; }
 }
-
 
 
 //        a. Add new branch.
