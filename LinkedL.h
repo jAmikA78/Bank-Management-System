@@ -91,6 +91,18 @@ public:
         return false;
     }
 
+    branch searchBranchAndPrint(string branch_id) {
+        branch *temp = branch_head;
+
+        while (temp != NULL) {
+            if (temp->id == branch_id) return *temp;
+            else temp = temp->next;
+        }
+        branch notFound;
+        notFound.id = "-1";
+        return notFound;
+    }
+
     // delete a branch
 
     bool deleteBranch(string branch_id) {
@@ -206,7 +218,7 @@ public:
     void displayHoldersAll() {
         holder *temp = holders_head;
         while (temp != NULL) {
-            cout << "Holder ID: " << temp->id << " Holder's name: " << temp->name << " Holder's address: " << temp->address << " Balance: " << temp->balance << "\nbelongs to the branch with id: " << temp->branch_id << '\n';
+            cout << "Holder ID: " << temp->id << " Holder's name: " << temp->name << " Holder's manager: " << temp->address << " Balance: " << temp->balance << "\nbelongs to the branch with id: " << temp->branch_id << '\n';
             temp = temp->next;
             cout << "=================================\n";
         }
@@ -227,7 +239,7 @@ public:
         holder *temp = holders_head;
         while (temp != NULL) {
             if(temp->branch_id == branch_id)
-                cout << "Holder ID: " << temp->id << " Holder's name: " << temp->name << " Holder's address: " << temp->address << " Balance: $" << temp->balance << '\n';
+                cout << "Holder ID: " << temp->id << " Holder's name: " << temp->name << " Holder's manager: " << temp->address << " Balance: $" << temp->balance << '\n';
             temp = temp->next;
         }
         cout << "=================================\n";
