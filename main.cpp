@@ -7,7 +7,7 @@ basic information (ID, Name, Address, Balance). Create a C++ program using
 two singly Linked Lists to perform the following functions.
 
 1- For Branches:-
-a. Add new Branch in sorted order bi id.
+a. Add new Branch in sorted order by id.
 b. Display Branch by ID.
 c. Display all Branches.
 d. Search for Branch by ID.
