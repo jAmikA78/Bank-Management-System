@@ -196,8 +196,7 @@ void addBranch() {
         if (List.searchBranchID(branch_id)) {
             posXY(print, 12);
             cout << "Information already exist.";
-        }
-        else {
+        } else {
             fflush(stdin);
             strcpy(bd.id, branch_id);
             posXY(print, 12);
@@ -372,6 +371,7 @@ void searchHolderName() {
     }
     SetColor(28);
 }
+
 // NOT DONE YET
 void updateHolder() {
     clearWindow();
@@ -538,6 +538,7 @@ void boxBorder() {
 
     for (int i = 1; i < 90; i++) { posXY(i, 6), wcout << (wchar_t) 205; }
 }
+
 
 
 //        a. Add new branch.
