@@ -97,9 +97,9 @@ void main_window(){
         gotoxy(x,15);
         cout << "8. Update Holder Information";
         gotoxy(x,16);
-        cout << "10. display Holders of a Branch by id";
+        cout << "9. display Holders of a Branch by id";
         gotoxy(x,17);
-        cout << "11. Logout";
+        cout << "10. Logout";
         gotoxy(x,20);
         cout << "Enter your choice: ";
         cin >> choice;
@@ -126,6 +126,7 @@ void main_window(){
                 searchHolderName();
                 break;
             case 8:
+                updateHolder();
                 break;
             case 9:
                 break;
@@ -461,7 +462,60 @@ void searchHolderName(){
 }
 
 void updateHolder(){
+    clearWindow();
+    SetColor(10);
+    print_heading(" -- Update Holder -- ");
+    int print = 37;
+    char n_id[15];
+    gotoxy(37,10);
+    cout << "ID: ";
+    fflush(stdin);
+    gets(n_id);
+//    FILE *data;
+//    data = fopen("info.txt","a+");
+//
+//    while(fread(&bd,sizeof(bd),1,data) == 1){ // check if id already exist
+//        if(strcmp(n_id,bd.id) == 0){
+//            isFound = 1;
+//            gotoxy(37,12);
+//            cout << "ID already exist.";
+//            break;
+//        }
+//    }
+    if(l1.searchHolderID(n_id)){
+//        if(data == NULL){
+//            MessageBox(0,"Error in Opening file.\nMake sure file is not write protected.","Warning",0);
+//        }
+        fflush(stdin);
+        strcpy(hd.id,n_id);
+        gotoxy(print,12);
+        cout << "New Name: ";
+        gets(hd.address);
+        gotoxy(print,14);
+        cout << "New Address: ";
+        gets(hd.address);
+        gotoxy(print,16);
+        cout << "New Branch ID: ";
+        gets(hd.branch_id);
+        gotoxy(print,18);
+        if(!l1.search_branch(hd.branch_id)){
+            cout << "branch id doesnt exist.";
+        }
+        else {
+            cout << "New Balance: ";
+            gets(hd.balance);
+            gotoxy(print, 20);
+            l1.UpdateHolder(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
+            cout << "Information is updated successfully.";
+        }
 
+    }
+    else{
+        gotoxy(37,12);
+        cout << "ID Doest Exist.";
+    }
+    SetColor(28);
+//    fclose(data);
 }
 
 void displayBranchHolders(){
