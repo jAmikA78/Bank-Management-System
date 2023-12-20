@@ -9,12 +9,12 @@ two singly Linked Lists to perform the following functions.
 1- For Branches:-
 a. Add new Branch in sorted order bi id.
 b. Display Branch by ID.
-c. Display all Branchs.
+c. Display all Branches.
 d. Search for Branch by ID.
 e- Remove Branch by ID.
 
 2- For Account Holders:-
-a. Add new Holder in sordet Holder by balance.
+a. Add new Holder in sorted Holder by balance.
 b. Remove a Holder.
 c. Display Holder data.
 d. Search for Holder by Name.
@@ -29,14 +29,32 @@ g. Display holders of a Branch ordered by their balances.
 
 using namespace std;
 
+void restore_branches_data();
+void restore_holders_data();
+void system_control();
+void store_branches_data();
+void store_holders_data();
+
+// main function
+
+int main() {
+    restore_branches_data();
+    restore_holders_data();
+    system_control();
+    store_branches_data();
+    store_holders_data();
+    return 0;
+}
+
+
 // function to useing system
-void system() {
+void system_control() {
     // here is the main code of my system
 }
 
 // function to restore old data base
 void restore_branches_data() {
-    // Read input from branches data base
+    // Read input from branches database
     ifstream branchs_data("branchs_data.txt");
     if (!branchs_data) {
         cerr << "Error opening branchs_data.txt" << endl;
@@ -91,15 +109,4 @@ void store_holders_data() {
 
     // Close holders_data
     holders_data.close();
-}
-
-// main function
-
-int main() {
-    restore_branches_data();
-    restore_holders_data();
-    system();
-    store_branches_data();
-    store_holders_data();
-    return 0;
 }
