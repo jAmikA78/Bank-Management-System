@@ -26,7 +26,9 @@ g. Display holders of a Branch ordered by their balances.
 
 #include <iostream>
 #include <fstream>
-
+#include "holderl.h"
+#include "branchl.h"
+#include "GUI.h"
 using namespace std;
 
 void restore_branches_data();
@@ -40,7 +42,7 @@ void store_holders_data();
 int main() {
     restore_branches_data();
     restore_holders_data();
-    system_control();
+    using_system();
     store_branches_data();
     store_holders_data();
     return 0;
