@@ -12,7 +12,7 @@ struct Branch {
 struct Holder {
     char id[30], name[30], address[30], branch_id[30], balance[30];
 } hd;
-LinkedList l1;
+LinkedList List;
 
 ///  ------------------------------------ Functions Declaration
 void SetColor(int FontColor);
@@ -179,74 +179,64 @@ void login() {
 
 void addBranch() {
     clearWindow();
-    string id, name, manager;
     SetColor(10);
     PageTitle(" -- Add Branch -- ");
     int print = 37;
-    char n_id[15];
-    int isFound = 0;
+    char branch_id[15];
+
     posXY(37, 10);
     cout << "ID: ";
     fflush(stdin);
-    gets(n_id);
-    FILE *data;
-    data = fopen("info.txt", "a+");
-    if (strlen(n_id) != 9) {
-        posXY(37, 12);
-        cout << "ID must be 9 characters";
+    gets(branch_id);
+
+    if (strlen(branch_id) != 4) {
+        posXY(print, 12);
+        cout << "ID must be 4 characters";
     } else {
-        while (fread(&bd, sizeof(bd), 1, data) == 1) {
-            if (strcmp(n_id, bd.id) == 0) {
-                isFound = 1;
-                posXY(37, 12);
-                cout << "Information already exist.";
-                break;
-            }
+        if (List.searchBranchID(branch_id)) {
+            posXY(print, 12);
+            cout << "Information already exist.";
         }
-        if (isFound == 0) {
-            if (data == nullptr) {
-                MessageBox(0, "Error in Opening file.\nMake sure file is not write protected.", "Warning", 0);
-            } else {
-                fflush(stdin);
-                strcpy(bd.id, n_id);
-                posXY(print, 12);
-                cout << "Name: ";
-                gets(bd.name);
-                posXY(print, 14);
-                cout << "Manager: ";
-                gets(bd.manager);
-                posXY(print, 16);
-                cout << "Information is added successfully.";
-                l1.insertatend(n_id, bd.name, bd.manager);
-            }
+        else {
+            fflush(stdin);
+            strcpy(bd.id, branch_id);
+            posXY(print, 12);
+            cout << "Name: ";
+            gets(bd.name);
+            posXY(print, 14);
+            cout << "Manager: ";
+            gets(bd.manager);
+            posXY(print, 16);
+            cout << "Information is added successfully.";
+            List.insertatend(branch_id, bd.name, bd.manager);
         }
     }
+
     SetColor(28);
-    fclose(data);
 }
 
 void displayBranch() {
     clearWindow();
     SetColor(10);
     PageTitle(" -- Display Branch info -- ");
-    char n_id[15];
-    int isFound = 0;
-    posXY(37, 10);
+    char branch_id[15];
+    int print = 37;
+    posXY(print, 10);
     cout << "Enter ID: ";
     fflush(stdin);
-    gets(n_id);
-    branch info = l1.searchBranchAndPrint(n_id);
+    gets(branch_id);
+    branch info = List.searchBranchAndPrint(branch_id);
     if (info.id != "-1") {
-        posXY(37, 12);
+        posXY(print, 12);
         cout << "Information is Found.";
-        posXY(37, 14);
+        posXY(print, 14);
         cout << "ID: " << info.id;
-        posXY(37, 15);
+        posXY(print, 15);
         cout << "Name: " << info.name;
-        posXY(37, 16);
+        posXY(print, 16);
         cout << "Manager: " << info.manager;
     } else {
-        posXY(37, 12);
+        posXY(print, 12);
         cout << "Sorry, Information not found.";
     }
     SetColor(28);
@@ -257,13 +247,13 @@ void removeBranch() { // this one needs to be handled correctly in the file (han
     SetColor(10);
     PageTitle(" -- Delete a branch by its id -- ");
     char n_id[15];
-    int isFound = 0, print = 37;
-    posXY(37, 10);
+    int print = 37;
+    posXY(print, 10);
     cout << "Enter ID: ";
     fflush(stdin);
     gets(n_id);
-    posXY(37, 12);
-    if (l1.deleteBranch(n_id))
+    posXY(print, 12);
+    if (List.deleteBranch(n_id))
         cout << "Information is deleted successfully.";
     else
         cout << "Branch doesnt exist.";
@@ -272,70 +262,51 @@ void removeBranch() { // this one needs to be handled correctly in the file (han
 
 void addHolder() {
     clearWindow();
-    string id, name, manager;
     SetColor(10);
     PageTitle(" -- Add Holder -- ");
     int print = 37;
-    char n_id[15];
-    int isFound = 0;
-    posXY(37, 10);
+    posXY(print, 10);
     cout << "ID: ";
     fflush(stdin);
-    gets(n_id);
-    FILE *data;
-    data = fopen("info.txt", "a+");
-
-    while (fread(&bd, sizeof(bd), 1, data) == 1) { // check if id already exist
-        if (strcmp(n_id, bd.id) == 0) {
-            isFound = 1;
-            posXY(37, 12);
-            cout << "ID already exist.";
-            break;
-        }
-    }
-    if (isFound == 0) {
-        if (data == nullptr) {
-            MessageBox(nullptr, "Error in Opening file.\nMake sure file is not write protected.", "Warning", 0);
-        } else {
-            fflush(stdin);
-            strcpy(hd.id, n_id);
-            posXY(print, 12);
-            cout << "Name: ";
-            gets(hd.name);
-            posXY(print, 14);
-            cout << "Address: ";
-            gets(hd.address);
-            posXY(print, 16);
-            cout << "Branch ID: ";
-            gets(hd.branch_id);
-            posXY(print, 18);
-            if (!l1.search_branch(hd.branch_id)) {
-                cout << "branch id doesnt exist.";
-            } else {
-                cout << "Balance: ";
-                gets(hd.balance);
-                posXY(print, 20);
-                cout << "Information is added successfully.";
-                l1.insertSorted(n_id, hd.name, hd.address, hd.branch_id, hd.balance);
-            }
+    gets(hd.id);
+    if (List.searchHolderID(hd.id)) {
+        fflush(stdin);
+        strcpy(hd.id, hd.id);
+        posXY(print, 12);
+        cout << "Name: ";
+        gets(hd.name);
+        posXY(print, 14);
+        cout << "Address: ";
+        gets(hd.address);
+        posXY(print, 16);
+        cout << "Branch ID: ";
+        gets(hd.branch_id);
+        posXY(print, 18);
+        if (!List.search_branch(hd.branch_id))
+            cout << "branch holder_id doesnt exist.";
+        else {
+            cout << "Balance: ";
+            gets(hd.balance);
+            posXY(print, 20);
+            cout << "Information is added successfully.";
+            List.insertSorted(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
         }
     }
     SetColor(28);
-    fclose(data);
 }
 
 void removeHolder() {
     clearWindow();
     SetColor(10);
     PageTitle(" -- Delete a holder by his id -- ");
-    char n_id[15];
-    int isFound = 0, print = 37;
-    posXY(37, 10);
+    char holder_id[15];
+    int print = 37;
+    posXY(print, 10);
     cout << "Enter ID: ";
     fflush(stdin);
-    gets(n_id);
-    posXY(37, 12);
-    if (l1.deleteHolder(n_id))
+    gets(holder_id);
+    posXY(print, 12);
+    if (List.deleteHolder(holder_id)) // O(holder)
         cout << "Information is deleted successfully.";
     else
         cout << "Holder doesnt exist.";
@@ -351,7 +322,7 @@ void displayHolder() {
     cout << "Enter ID: ";
     fflush(stdin);
     gets(n_id);
-    holder info = l1.searchHolderIDAndPrint(n_id);
+    holder info = List.searchHolderIDAndPrint(n_id); // O(n)
     if (info.id != "-1") {
         posXY(37, 12);
         cout << "Information is Found.";
@@ -364,7 +335,7 @@ void displayHolder() {
         posXY(37, 17);
         cout << "Branch ID: " << info.branch_id;
         posXY(37, 18);
-        cout << "Balance: " << info.balance;
+        cout << "Balance: $" << info.balance;
     } else {
         posXY(37, 12);
         cout << "Sorry, Information not found.";
@@ -381,7 +352,7 @@ void searchHolderName() {
     cout << "Enter Name: ";
     fflush(stdin);
     gets(n_name);
-    holder info = l1.searchHolderNameAndPrint(n_name);
+    holder info = List.searchHolderNameAndPrint(n_name); // O(n)
     if (info.id != "-1") {
         posXY(37, 12);
         cout << "Information is Found.";
@@ -394,14 +365,14 @@ void searchHolderName() {
         posXY(37, 17);
         cout << "Branch ID: " << info.branch_id;
         posXY(37, 18);
-        cout << "Balance: " << info.balance;
+        cout << "Balance: $" << info.balance;
     } else {
         posXY(37, 12);
         cout << "Sorry, Information not found.";
     }
     SetColor(28);
 }
-
+// NOT DONE YET
 void updateHolder() {
     clearWindow();
     SetColor(10);
@@ -412,7 +383,7 @@ void updateHolder() {
     cout << "ID: ";
     fflush(stdin);
     gets(n_id);
-    if (l1.searchHolderID(n_id)) {
+    if (List.searchHolderID(n_id)) { // O(holder)
         fflush(stdin);
         strcpy(hd.id, n_id);
         posXY(print, 12);
@@ -425,13 +396,13 @@ void updateHolder() {
         cout << "New Branch ID: ";
         gets(hd.branch_id);
         posXY(print, 18);
-        if (!l1.search_branch(hd.branch_id)) {
+        if (!List.search_branch(hd.branch_id)) { // O(branch)
             cout << "branch id doesnt exist.";
         } else {
             cout << "New Balance: ";
             gets(hd.balance);
             posXY(print, 20);
-            l1.UpdateHolder(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
+            List.UpdateHolder(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
             cout << "Information is updated successfully.";
         }
 
@@ -446,17 +417,17 @@ void displayBranchHolders() {
     clearWindow();
     SetColor(10);
     PageTitle(" -- Display Holder info -- ");
-    char n_id[15];
+    char branch_id[15];
     posXY(37, 10);
     cout << "Enter Branch ID: ";
     fflush(stdin);
-    gets(n_id);
-    if (l1.searchBranchID(n_id)) {
-        holder *temp = l1.holders_head;
-        int place = 12;
-        while (temp != nullptr) {
-            if (temp->branch_id == n_id) {
-                posXY(37, place += 2);
+    gets(branch_id);
+    if (List.searchBranchID(branch_id)) {
+        holder *temp = List.holders_head;
+        int y_pos = 12;
+        while (temp != nullptr) { // I wrote this function here cuz I couldn't handle it in the .h file
+            if (temp->branch_id == branch_id) {
+                posXY(37, y_pos += 2);
                 cout << "*Holder ID: " << temp->id << "| Holder's name: " << temp->name << "| Holder's manager: "
                      << temp->address << "| Balance: $" << temp->balance << '\n';
             }
