@@ -47,6 +47,7 @@ void addHolder();
 void removeHolder();
 void displayHolder();
 void searchHolder();
+void searchHolderName();
 void updateHolder();
 void displayBranchHolders();
 void removeBranch();
@@ -96,10 +97,8 @@ void main_window(){
         gotoxy(x,15);
         cout << "8. Update Holder Information";
         gotoxy(x,16);
-        cout << "9. Display branch holders ordered";
-        gotoxy(x,17);
         cout << "10. display Holders of a Branch by id";
-        gotoxy(x,18);
+        gotoxy(x,17);
         cout << "11. Logout";
         gotoxy(x,20);
         cout << "Enter your choice: ";
@@ -124,6 +123,7 @@ void main_window(){
                 displayHolder();
                 break;
             case 7:
+                searchHolderName();
                 break;
             case 8:
                 break;
@@ -187,19 +187,20 @@ void login(){
     }
 }
 
+
+/*------- Menu -------*/
+
 //        a. Add new branch.                        done
 //        h. Remove Branch.                         done
 //        b. Display Branch.                        done
 //        c. Search for Branch by ID.               done
-//        =====================================================
+//        ==================================================
 //        a. Add new holder.                        done
 //        b. Remove a holder.                       done
 //        c. Display holder data.                   done
-//        d. Search for holder by Name.             NOT DONE
+//        d. Search for holder by Name.             done
 //        e. Update Holder Information.             NOT DONE
 //        f. display Holders of a Branch by id.     NOT DONE
-
-/*------- Menu -------*/
 
 void addBranch(){
     clearWindow();
@@ -417,11 +418,11 @@ void displayHolder(){
         gotoxy(37,15);
         cout << "Name: " << info.name;
         gotoxy(37,16);
-        cout << "Manager: " << info.address;
+        cout << "Address: " << info.address;
         gotoxy(37,17);
-        cout << "Manager: " << info.branch_id;
+        cout << "Branch ID: " << info.branch_id;
         gotoxy(37,18);
-        cout << "Manager: " << info.balance;
+        cout << "Balance: " << info.balance;
     }else{
         gotoxy(37,12);
         cout << "Sorry, Information not found.";
@@ -429,8 +430,34 @@ void displayHolder(){
     SetColor(28);
 }
 
-void searchHolder(){
-
+void searchHolderName(){
+    clearWindow();
+    SetColor(10);
+    print_heading(" -- Search Holder info -- ");
+    char n_name[15];
+    gotoxy(37,10);
+    cout << "Enter Name: ";
+    fflush(stdin);
+    gets(n_name);
+    holder info = l1.searchHolderNameAndPrint(n_name);
+    if(info.id != "-1"){
+        gotoxy(37,12);
+        cout << "Information is Found.";
+        gotoxy(37,14);
+        cout << "ID: " << info.id;
+        gotoxy(37,15);
+        cout << "Name: " << info.name;
+        gotoxy(37,16);
+        cout << "Address: " << info.address;
+        gotoxy(37,17);
+        cout << "Branch ID: " << info.branch_id;
+        gotoxy(37,18);
+        cout << "Balance: " << info.balance;
+    }else{
+        gotoxy(37,12);
+        cout << "Sorry, Information not found.";
+    }
+    SetColor(28);
 }
 
 void updateHolder(){
@@ -645,7 +672,6 @@ void gotoxy(int x, int y){
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-
 /*------- Title -------*/
 void window(){
     boxBorder();
@@ -685,19 +711,19 @@ void clearWindow(){
 /*------- Box Border -------*/
 void boxBorder(){
 
-    // Flag of Bangldesh
-    for(int i = 6; i<=15; i++){
-        for(int j = 2; j <= 4; j++){
-            SetColor(2);
-            gotoxy(i, j);
-            printf("%c",219);
-            if ((i == 10 || i == 11) && j == 3){
-                SetColor(12);
-                gotoxy(i,j);
-                printf("%c",219);
-            }
-        }
-    }
+//    // Flag of Bangldesh
+//    for(int i = 6; i<=15; i++){
+//        for(int j = 2; j <= 4; j++){
+//            SetColor(2);
+//            gotoxy(i, j);
+//            printf("%c",219);
+//            if ((i == 10 || i == 11) && j == 3){
+//                SetColor(12);
+//                gotoxy(i,j);
+//                printf("%c",219);
+//            }
+//        }
+//    }
 
 
 
