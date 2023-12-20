@@ -1,5 +1,5 @@
-#ifndef UNTITLED1_LINKEDL_H
-#define UNTITLED1_LINKEDL_H
+#ifndef UNTITLED1_BRANCHL_H
+#define UNTITLED1_BRANCHL_H
 
 #include <iostream>
 
@@ -133,4 +133,5 @@ public:
     }
 
 };
-#endif //UNTITLED1_LINKEDL_H
+
+#endif //UNTITLED1_BRANCHL_H
