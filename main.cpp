@@ -8,9 +8,10 @@ two singly Linked Lists to perform the following functions.
 
 1- For Branches:-
 a. Add new Branch in sorted order bi id.
-b. Display Branch.
-c. Search for Branch by ID.
-d- Remove Branch.
+b. Display Branch by ID.
+c. Display all Branchs.
+d. Search for Branch by ID.
+e- Remove Branch by ID.
 
 2- For Account Holders:-
 a. Add new Holder in sordet Holder by balance.
@@ -68,6 +69,7 @@ struct list_of_branshs
 {
     Branch *head;
     Branch *last;
+
     // add new branch (in sorted order by id)
     void add_branch(string ID, string Name, string Manager)
     {
@@ -87,6 +89,93 @@ struct list_of_branshs
         cur->next = temp;
         if (temp->next == NULL)
             last = temp;
+    }
+
+    // disblay branch by id
+    void disblay_bransh(string id)
+    {
+        Branch *cur = head;
+        while (cur != NULL)
+        {
+            if (cur->id == id)
+            {
+                cout << "Branch ID = " << cur->id << '\n';
+                cout << "Branch Name = " << cur->name << '\n';
+                cout << "Branch Manger = " << cur->manager << '\n';
+                return;
+            }
+            cur = cur->next;
+        }
+        cout << "Not Founded\n";
+        return;
+    }
+
+    // display all of the branchs
+    void disblay_all()
+    {
+        if (head == NULL)
+        {
+            cout << "There is no branches to display\n";
+            return;
+        }
+        Branch *cur = head;
+        cout << "--------------------------------------------------\n";
+        while (cur != NULL)
+        {
+            cout << "Branch ID = " << cur->id << '\n';
+            cout << "Branch Name = " << cur->name << '\n';
+            cout << "Branch Manger = " << cur->manager << '\n';
+            cout << "--------------------------------------------------\n";
+            cur = cur->next;
+        }
+    }
+
+    // Search for Branch by ID.
+    bool search_branch(string id)
+    {
+        if (head == NULL)
+            return false;
+        Branch *cur = head;
+        while (cur != NULL)
+        {
+            if (cur->id == id)
+                return true;
+        }
+        return false;
+    }
+
+    // remove branch by id
+    void remove_branch(string id)
+    {
+        if (head == NULL)
+        {
+            cout << "Not Founded\n";
+            return;
+        }
+        if (head->next == NULL)
+        {
+            if (head->id == id)
+            {
+                delete head;
+                head = NULL;
+                last = NULL;
+            }
+            else
+                cout << "Not Founded\n";
+            return;
+        }
+        Branch *cur = head;
+        while (cur->next != NULL && cur->next->id != id)
+            cur = cur->next;
+        if (cur->next == NULL)
+        {
+            cout << "Not Founded\n";
+            return;
+        }
+        if (cur->next->next == NULL)
+            last = cur;
+        delete cur->next;
+        cur->next = NULL;
     }
 };
 
