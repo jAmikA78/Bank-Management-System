@@ -225,33 +225,32 @@ public:
 
     // Remove a holder.
     bool deleteHolder(string holder_id) {
-        if (isEmptyHolders()) return false;
-        else if (searchHolderID(holder_id)) {
-            holder *temp1 = holders_head;
-            holder *prev = NULL;
-            if (holders_head->id == holder_id) {
-                if(holders_head->next == NULL){
-                    holders_head = NULL;
-
-                }
-                holders_head = holders_head->next;
-                delete temp1;
-            }
-            else {
-                prev = temp1;
-                temp1 = temp1->next;
-                while (prev->next != NULL) {
-                    if(!(temp1->id == holder_id))
-                        prev = temp1, temp1 = temp1->next;
-                    else
-                        break;
-                }
-                prev->next = temp1->next;
-                delete (temp1);
-            }
-            return true;
+        if (holders_head == NULL){
+            cout << "Not Founded\n";
+            return false;
         }
-        else return false;
+
+        // list has only one element
+        if (holders_head->next == NULL){
+            if (holders_head->id == holder_id)
+            {
+                delete holders_head;
+                holders_head = NULL;
+                return true;
+            }
+            else
+                return false;
+        }
+
+        // search for element by id
+        holder *cur = holders_head;
+        while (cur->next != NULL && cur->next->id != holder_id)
+            cur = cur->next;
+        if (cur->next == NULL){
+            return false;
+        }
+        delete cur->next;
+        cur->next = NULL;
     }
 
     // Display holder data.
@@ -259,8 +258,8 @@ public:
         holder *temp = holders_head;
         while (temp != NULL) {
             cout << "Holder ID: " << temp->id << " Holder's name: " << temp->name << " Holder's manager: "
-            << temp->address << " Balance: " << temp->balance << "\nbelongs to the branch with id: "
-            << temp->branch_id << '\n';
+                 << temp->address << " Balance: " << temp->balance << "\nbelongs to the branch with id: "
+                 << temp->branch_id << '\n';
 
             temp = temp->next;
 //            cout << "=================================\n";
