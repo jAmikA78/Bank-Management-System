@@ -129,6 +129,7 @@ void main_window(){
                 updateHolder();
                 break;
             case 9:
+                displayBranchHolders();
                 break;
             case 10:
                 break;
@@ -351,11 +352,12 @@ void addHolder() {
             gotoxy(print,16);
             cout << "Branch ID: ";
             gets(hd.branch_id);
-            gotoxy(print,18);
             if(!l1.search_branch(hd.branch_id)){
+                gotoxy(print,18);
                 cout << "branch id doesnt exist.";
             }
             else {
+                gotoxy(print,18);
                 cout << "Balance: ";
                 gets(hd.balance);
                 gotoxy(print, 20);
@@ -511,7 +513,7 @@ void updateHolder(){
 
     }
     else{
-        gotoxy(37,12);
+        gotoxy(print,12);
         cout << "ID Doest Exist.";
     }
     SetColor(28);
@@ -519,7 +521,30 @@ void updateHolder(){
 }
 
 void displayBranchHolders(){
-
+    clearWindow();
+    SetColor(10);
+    print_heading(" -- Display Holder info -- ");
+    char n_id[15];
+    gotoxy(37,10);
+    cout << "Enter Branch ID: ";
+    fflush(stdin);
+    gets(n_id);
+    if(l1.searchBranchID(n_id)){
+        holder *temp = l1.holders_head;
+        int place = 12;
+        while (temp != NULL) {
+            if(temp->branch_id == n_id) {
+                gotoxy(37,place += 2);
+                cout << "*Holder ID: " << temp->id << "| Holder's name: " << temp->name << "| Holder's manager: "
+                     << temp->address << "| Balance: $" << temp->balance << '\n';
+            }
+            temp = temp->next;
+        }
+    }else{
+        gotoxy(37,12);
+        cout << "Sorry, Information not found.";
+    }
+    SetColor(28);
 }
 
 
