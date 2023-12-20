@@ -14,7 +14,7 @@ public:
     holder(){
         id = name = address = branch_id = "";
         balance = "";
-        next = NULL;
+        next = nullptr;
     }
 };
 
@@ -25,21 +25,21 @@ public:
 
     branch(){
         id = name = manager = "";
-        next = NULL;
+        next = nullptr;
     }
 };
 
 class LinkedList{
 public:
-    branch *branch_head = NULL;
-    holder *holders_head = NULL;
+    branch *branch_head = nullptr;
+    holder *holders_head = nullptr;
 
     // ========================================================================
     // BRANCH FUNCTIONS
 
     // Check if no branches exist
     bool isEmptyBranches() {
-        if (branch_head == NULL)
+        if (branch_head == nullptr)
             return true;
         else
             return false;
@@ -57,18 +57,18 @@ public:
     {
 //        branch *newnode=new branch();
 //        newnode->id = id, newnode->name = name,
-//        newnode->manager = manager, newnode->next= NULL;
+//        newnode->manager = manager, newnode->next= nullptr;
 //
 //        branch *temp=branch_head;
-//        while (temp->next != NULL)
+//        while (temp->next != nullptr)
 //            temp=temp->next;
 //        temp->next=newnode;
         branch *newnode=new branch();
         newnode->id = id, newnode->name = name,
-        newnode->manager = manager, newnode->next= NULL;
+        newnode->manager = manager, newnode->next= nullptr;
         if(isEmptyBranches())
         {
-            newnode->next=NULL;
+            newnode->next=nullptr;
             branch_head=newnode;
         }
         else
@@ -81,7 +81,7 @@ public:
     // Display a branch
     void displayBranches() {
         branch *temp = branch_head;
-        while (temp != NULL) {
+        while (temp != nullptr) {
             cout << "Branch id: " << temp->id << " Name: " << temp->name << " Manager: " << temp->manager << '\n';
             temp = temp->next;
         }
@@ -91,7 +91,7 @@ public:
     // Search for branch by id
     bool search_branch(string branch_id) {
         branch *temp = branch_head;
-        while (temp != NULL) {
+        while (temp != nullptr) {
             if (temp->id == branch_id) return true;
             else temp = temp->next;
         }
@@ -101,7 +101,7 @@ public:
     branch searchBranchAndPrint(string branch_id) {
         branch *temp = branch_head;
 
-        while (temp != NULL) {
+        while (temp != nullptr) {
             if (temp->id == branch_id) return *temp;
             else temp = temp->next;
         }
@@ -112,7 +112,7 @@ public:
     bool searchBranchID(string branch_id) {
         branch *temp = branch_head;
 
-        while (temp != NULL) {
+        while (temp != nullptr) {
             if (temp->id == branch_id) return true;
             else temp = temp->next;
         }
@@ -125,7 +125,7 @@ public:
         if (isEmptyBranches()) return false;
         else if (search_branch(branch_id)) {
             branch *temp1 = branch_head;
-            branch *prev = NULL;
+            branch *prev = nullptr;
             if (branch_head->id == branch_id) {
                 branch_head = branch_head->next;
                 delete temp1;
@@ -133,7 +133,7 @@ public:
             else {
                 prev = temp1;
                 temp1 = temp1->next;
-                while (prev->next != NULL) {
+                while (prev->next != nullptr) {
                     if(!(temp1->id == branch_id))
                         prev = temp1, temp1 = temp1->next;
                     else
@@ -155,7 +155,7 @@ public:
 
     // Check if no branches exist
     bool isEmptyHolders() {
-        if (holders_head == NULL)
+        if (holders_head == nullptr)
             return true;
         else
             return false;
@@ -170,14 +170,14 @@ public:
         newnode->balance = balance;
         newnode->branch_id = branch_id;
 
-        if (holders_head == NULL || (holders_head)->balance >= newnode->balance) {
+        if (holders_head == nullptr || (holders_head)->balance >= newnode->balance) {
             newnode->next = holders_head;
             holders_head = newnode;
             return;
         }
 
         holder *temp = holders_head;
-        while (temp->next != NULL && temp->next->balance < newnode->balance)
+        while (temp->next != nullptr && temp->next->balance < newnode->balance)
             temp = temp->next;
 
         newnode->next = temp->next;
@@ -187,7 +187,7 @@ public:
     // Search a holder by name & id
     bool searchHolderName(string holder_name) {
         holder *temp = holders_head;
-        while (temp != NULL) {
+        while (temp != nullptr) {
             if (temp->name == holder_name) return true;
             else temp = temp->next;
         }
@@ -195,7 +195,7 @@ public:
     }
     holder searchHolderNameAndPrint(string holder_name) {
         holder *temp = holders_head;
-        while (temp != NULL) {
+        while (temp != nullptr) {
             if (temp->name == holder_name) return *temp;
             else temp = temp->next;
         }
@@ -206,7 +206,7 @@ public:
 
     bool searchHolderID(string holder_id) {
         holder *temp = holders_head;
-        while (temp != NULL) {
+        while (temp != nullptr) {
             if (temp->id == holder_id) return true;
             else temp = temp->next;
         }
@@ -214,7 +214,7 @@ public:
     }
     holder searchHolderIDAndPrint(string holder_id) {
         holder *temp = holders_head;
-        while (temp != NULL) {
+        while (temp != nullptr) {
             if (temp->id == holder_id) return *temp;
             else temp = temp->next;
         }
@@ -225,17 +225,17 @@ public:
 
     // Remove a holder.
     bool deleteHolder(string holder_id) {
-        if (holders_head == NULL){
+        if (holders_head == nullptr){
             cout << "Not Founded\n";
             return false;
         }
 
         // list has only one element
-        if (holders_head->next == NULL){
+        if (holders_head->next == nullptr){
             if (holders_head->id == holder_id)
             {
                 delete holders_head;
-                holders_head = NULL;
+                holders_head = nullptr;
                 return true;
             }
             else
@@ -244,19 +244,19 @@ public:
 
         // search for element by id
         holder *cur = holders_head;
-        while (cur->next != NULL && cur->next->id != holder_id)
+        while (cur->next != nullptr && cur->next->id != holder_id)
             cur = cur->next;
-        if (cur->next == NULL){
+        if (cur->next == nullptr){
             return false;
         }
         delete cur->next;
-        cur->next = NULL;
+        cur->next = nullptr;
     }
 
     // Display holder data.
     void displayHoldersAll() {
         holder *temp = holders_head;
-        while (temp != NULL) {
+        while (temp != nullptr) {
             cout << "Holder ID: " << temp->id << " Holder's name: " << temp->name << " Holder's manager: "
                  << temp->address << " Balance: " << temp->balance << "\nbelongs to the branch with id: "
                  << temp->branch_id << '\n';
@@ -279,7 +279,7 @@ public:
     // Display Holders in a branch
     void displayBranchHolders(string branch_id){
         holder *temp = holders_head;
-        while (temp != NULL) {
+        while (temp != nullptr) {
             if(temp->branch_id == branch_id) {
                 cout << "*Holder ID: " << temp->id << "| Holder's name: " << temp->name << "| Holder's manager: "
                      << temp->address << "| Balance: $" << temp->balance << '\n';
@@ -293,12 +293,12 @@ public:
     void RemoveBranchAndHolders(string branch_id){
         if(deleteBranch(branch_id)){
             holder* current = holders_head;
-            holder* prev = NULL;
+            holder* prev = nullptr;
 
-            while (current != NULL) {
+            while (current != nullptr) {
                 if (current->branch_id == branch_id) {
                     // If it's the head node, update head
-                    if (prev == NULL)
+                    if (prev == nullptr)
                         holders_head = current->next;
                     else
                         prev->next = current->next;
