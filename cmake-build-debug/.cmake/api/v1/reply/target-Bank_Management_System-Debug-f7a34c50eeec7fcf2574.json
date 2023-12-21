@@ -108,7 +108,8 @@
 			[
 				0,
 				1,
-				2
+				2,
+				4
 			]
 		},
 		{
@@ -141,6 +142,11 @@
 			"compileGroupIndex" : 0,
 			"path" : "main.cpp",
 			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "datab.h",
+			"sourceGroupIndex" : 0
 		}
 	],
 	"type" : "EXECUTABLE"
