@@ -1,20 +1,18 @@
 #ifndef UNTITLED1_HOLDERL_H
 #define UNTITLED1_HOLDERL_H
 
-#include <iostream>
+#include <bits/stdc++.h>
 #include "branchl.h"
 
 using namespace std;
 
 class holder {
 public:
-    string id, name, address, branch_id;
-    string balance;
+    string id, name, address, branch_id, balance;
     holder *next;
 
     holder() {
-        id = name = address = branch_id = "";
-        balance = "";
+        id = name = address = branch_id = balance = "";
         next = nullptr;
     }
 };
@@ -210,4 +208,4 @@ public:
 
 };
 
-#endif //UNTITLED1_HOLDERL_H
+#endif

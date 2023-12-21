@@ -1,23 +1,23 @@
 #ifndef UNTITLED1_BRANCHL_H
 #define UNTITLED1_BRANCHL_H
 
-#include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 
-class branch{
+class branch {
 public:
     string id, name, manager;
     branch *next;
 
-    branch(){
+    branch() {
         id = name = manager = "";
         next = nullptr;
     }
 };
 
-class branchList{
+class branchList {
 public:
     branch *head = nullptr;
 
@@ -30,20 +30,16 @@ public:
     }
 
     // Add a branch
-    void insert_at_beginning(string id, string name, string manager)
-    {
-        branch *newnode=new branch();
+    void insert_at_beginning(string id, string name, string manager) {
+        branch *newnode = new branch();
         newnode->id = id, newnode->name = name,
-        newnode->manager = manager, newnode->next= nullptr;
-        if(head=nullptr)
-        {
-            newnode->next=nullptr;
-            head=newnode;
-        }
-        else
-        {
-            newnode->next=head;
-            head=newnode;
+        newnode->manager = manager, newnode->next = nullptr;
+        if (head = nullptr) {
+            newnode->next = nullptr;
+            head = newnode;
+        } else {
+            newnode->next = head;
+            head = newnode;
         }
     }
 
@@ -98,12 +94,11 @@ public:
             if (head->id == branch_id) {
                 head = head->next;
                 delete temp1;
-            }
-            else {
+            } else {
                 prev = temp1;
                 temp1 = temp1->next;
                 while (prev->next != nullptr) {
-                    if(!(temp1->id == branch_id))
+                    if (!(temp1->id == branch_id))
                         prev = temp1, temp1 = temp1->next;
                     else
                         break;
@@ -112,10 +107,9 @@ public:
                 delete (temp1);
             }
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
 };
 
-#endif //UNTITLED1_BRANCHL_H
+#endif

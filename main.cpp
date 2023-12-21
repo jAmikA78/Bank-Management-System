@@ -1,30 +1,4 @@
-/*
-Project Description:-
-This project manages the bank activities. The bank has many branches. Each
-Branch has basic information (ID, Name, Manager). The bank deals with many
-account holders and each Holder may have many accounts. Each Holder has
-basic information (ID, Name, Address, Balance). Create a C++ program using
-two singly Linked Lists to perform the following functions.
-
-1- For Branches:-
-a. Add new Branch.
-b. Display Branch by ID.
-c. Display all Branches.
-d. Search for Branch by ID.
-e- Remove Branch by ID.
-
-2- For Account Holders:-
-a. Add new Holder in sorted Holder by balance.
-b. Remove a Holder.
-c. Display Holder data.
-d. Search for Holder by Name.
-e. Update Holder Information.
-f. Given a Branch id, display Holders in that Branch.
-g. Display holders of a Branch ordered by their balances.
-
-*/
-
-#include <iostream>
+#include <bits/stdc++.h>
 #include <fstream>
 #include "holderl.h"
 #include "branchl.h"
@@ -40,7 +14,6 @@ void store_branches_data();
 
 void store_holders_data();
 
-// main function
 int main() {
     restore_branches_data();
     restore_holders_data();
@@ -50,7 +23,7 @@ int main() {
     return 0;
 }
 
-// function to restore old data base
+/// ---------------------------------------------- function to restore from database
 void restore_branches_data() {
     ifstream branches_data("branches_data.txt");
     if (!branches_data) {
