@@ -157,7 +157,7 @@ public:
         last = temp;
     }
 
-    // Display holder data.
+    // ----------------------------------------- Display holder data.
     void displayHoldersAll() {
         holder *temp = head;
         while (temp != nullptr) {
@@ -168,7 +168,7 @@ public:
         }
     }
 
-    // Update Holder Information.
+    // ----------------------------------------- Update Holder Information.
     bool UpdateHolder(string id, string name, string address, string branch_id, string balance) {
         if(deleteHolder(id)) {
             insertSorted(id, name, address, branch_id, balance);
@@ -177,7 +177,7 @@ public:
         return false;
     }
 
-    // Display Holders in a branch
+    // ----------------------------------------- Display Holders in a branch
     void displayBranchHolders(string branch_id) {
         holder *temp = head;
         while (temp != nullptr) {
@@ -189,7 +189,7 @@ public:
         }
     }
 
-    // Remove all branch holders
+    // ----------------------------------------- Remove all branch holders
     void remove_all_holders(string branch_id) {
 
         holder *cur = head;
@@ -197,12 +197,10 @@ public:
 
         while (cur != nullptr) {
             if (cur->branch_id == branch_id) {
-                // If it's the head node, update head
                 if (prev == nullptr)
                     head = cur->next;
                 else
                     prev->next = cur->next;
-
                 holder *temp = cur;
                 cur = cur->next;
                 delete temp;
