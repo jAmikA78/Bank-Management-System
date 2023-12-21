@@ -74,9 +74,10 @@ void using_system() {
     SetConsoleTitle("Bank Management System - BMS");
     window();
     first_window();
-    return;
+    exit(0);
 }
 
+// this is the window where the administrator have his commands
 void main_window() {
     ClearConsoleToColors(0, 0);
     SetConsoleTitle("Bank Management System - BMS");
@@ -147,9 +148,9 @@ void main_window() {
                 return;
         }
     }
-    return;
 }
 
+// this is the window where the holder can use his commands
 void main_window2() {
     ClearConsoleToColors(0, 0);
     SetConsoleTitle("Bank Management System - BMS");
@@ -187,7 +188,7 @@ void main_window2() {
                 first_window();
                 break;
             default:
-                return;
+                break;
         }
     }
 }
@@ -230,6 +231,7 @@ void login() {
         system("cls");
         window();
         posXY(20, 18);
+        SetColor(1028);
         cout << "Invalid Password. Try again." << endl;
         login();
     }
@@ -248,6 +250,8 @@ void first_window() {
         cout << "1. Sign in as Administrator";
         posXY(posX, posY += 2);
         cout << "2. Use as holder";
+        posXY(posX, posY += 2);
+        cout << "3. Exit";
         posXY(posX, 20);
         cout << "Enter your choice: ";
         cin >> choice;
@@ -258,11 +262,15 @@ void first_window() {
             case 2:
                 main_window2();
                 break;
+            case 3:
+                exit(0);
             default:
-                return;
+                break;
         }
     }
 }
+
+// add the new branch to the linked list
 void addBranch() {
     clearWindow();
     SetColor(10);
@@ -303,6 +311,7 @@ void addBranch() {
     SetColor(28);
 }
 
+// search for a branch by the id and display his information
 void displayBranch() {
     clearWindow();
     SetColor(10);
@@ -331,7 +340,8 @@ void displayBranch() {
     SetColor(28);
 }
 
-void removeBranch() { // this one needs to be handled correctly in the file (handled in the linked list)
+// this one removes the branch from the linked list
+void removeBranch() {
     clearWindow();
     SetColor(10);
     PageTitle(" -- Delete a branch by its id -- ");
@@ -353,6 +363,7 @@ void removeBranch() { // this one needs to be handled correctly in the file (han
     SetColor(28);
 }
 
+// adds the holder to the linked list
 void addHolder() {
     clearWindow();
     SetColor(10);
@@ -389,6 +400,7 @@ void addHolder() {
     SetColor(28);
 }
 
+// remove holder from the linked list
 void removeHolder() {
     clearWindow();
     SetColor(10);
@@ -411,6 +423,7 @@ void removeHolder() {
     SetColor(28);
 }
 
+// display holder by searching on his ID
 void displayHolder() {
     clearWindow();
     SetColor(10);
@@ -420,6 +433,7 @@ void displayHolder() {
     cout << "Enter ID: ";
     fflush(stdin);
     gets(n_id);
+    // had to create new function that returns a holder so we get the info back
     holder info = holderLIST.searchHolderIDAndPrint(n_id); // O(n)
     if (info.id != "-1") {
         posXY(40, 12);
@@ -442,6 +456,7 @@ void displayHolder() {
     SetColor(28);
 }
 
+// this one search's for a holder by his name
 void searchHolderName() {
     clearWindow();
     SetColor(10);
@@ -451,6 +466,7 @@ void searchHolderName() {
     cout << "Enter Name: ";
     fflush(stdin);
     gets(n_name);
+    // had to create new function that returns a holder
     holder info = holderLIST.searchHolderNameAndPrint(n_name); // O(n)
     if (info.id != "-1") {
         posXY(40, 12);
@@ -473,7 +489,8 @@ void searchHolderName() {
     SetColor(28);
 }
 
-// NOT DONE YET
+// this one updates the holder by removing him from the linked list then adding him back with the updated data
+// O(holder) + O(branch) + O(holder) + O(holder) = O(3holder + branch)
 void updateHolder() {
     clearWindow();
     SetColor(10);
@@ -521,6 +538,8 @@ void updateHolder() {
     SetColor(28);
 }
 
+// this one displays the holders within a branch by searching the branch id
+// O(branch + holder)
 void displayBranchHolders() {
     clearWindow();
     SetColor(10);
@@ -593,6 +612,10 @@ void posXY(int x, int y) {
 void window() {
     boxBorder();
     SetColor(11);
+    posXY(2, 1);
+    time_t t = time(NULL);
+    tm* tPtr = localtime(&t);
+    cout << "Time: "<< tPtr->tm_hour << ":" << tPtr->tm_min;
     posXY(35, 3);
     cout << "Bank Management System";
 }
