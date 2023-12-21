@@ -23,15 +23,13 @@ public:
     holder *head = nullptr;
     holder *last = nullptr;
 
-    // Check if no branches exist
+    /// ----------------------------------------- Check if no branches
     bool isEmptyHolders() {
-        if (head == nullptr)
-            return true;
-        else
-            return false;
+        if (head == nullptr) return true;
+        else return false;
     }
 
-    // Add a holder to a branch
+    /// ----------------------------------------- Insert holder into branch
     void insertSorted(string id, string name, string address, string branch_id, string balance) {
         holder *newnode = new holder();
         newnode->id = id;
@@ -40,31 +38,33 @@ public:
         newnode->balance = balance;
         newnode->branch_id = branch_id;
 
-        //list is empty
+        /// ----------------------------------------- Check if list is empty
         if (head == nullptr) {
             head = newnode;
             last = newnode;
             return;
         }
 
+        /// ----------------------------------------- If new item less than head.
         if (head->balance >= newnode->balance) {
             newnode->next = head;
             head = newnode;
             return;
         }
 
+        /// ----------------------------------------- Traverse to insert sorted
         holder *temp = head;
         while (temp->next != nullptr && temp->next->balance < newnode->balance)
             temp = temp->next;
         newnode->next = temp->next;
         temp->next = newnode;
 
-        // my new node is the last node
+        /// ----------------------------------------- Check if insert at end -> edit last node
         if (newnode->next == nullptr)
             last = newnode;
     }
 
-    // insert in the end to read old database
+    /// ----------------------------------------- Insert at the end
     void insert_at_last(string id, string name, string address, string branch_id, string balance) {
         holder *newnode = new holder();
         newnode->id = id;
@@ -74,7 +74,7 @@ public:
         newnode->branch_id = branch_id;
         newnode->next = nullptr;
 
-        //insert first element
+        /// ----------------------------------------- If list is empty
         if (head == nullptr) {
             head = newnode;
             last = newnode;
@@ -84,7 +84,7 @@ public:
         last = newnode;
     }
 
-    // Search a holder by name & id
+    /// ----------------------------------------- Search a holder using name
     bool searchHolderName(string holder_name) {
         holder *temp = head;
         while (temp != nullptr) {
@@ -94,6 +94,7 @@ public:
         return false;
     }
 
+    /// ----------------------------------------- Get all holders data using name
     holder searchHolderNameAndPrint(string holder_name) {
         holder *temp = head;
         while (temp != nullptr) {
@@ -105,6 +106,7 @@ public:
         return notFound;
     }
 
+    /// ----------------------------------------- Check if user already inserted using ID
     bool searchHolderID(string holder_id) {
         holder *temp = head;
         while (temp != nullptr) {
@@ -114,6 +116,7 @@ public:
         return false;
     }
 
+    /// ----------------------------------------- Search about user and if already inserted return all data
     holder searchHolderIDAndPrint(string holder_id) {
         holder *temp = head;
         while (temp != nullptr) {
@@ -125,15 +128,14 @@ public:
         return notFound;
     }
 
-    // delete a holder.
+    /// ----------------------------------------- Delete holder if list isn't empty
     bool deleteHolder(string holder_id) {
         if (head == nullptr) {
             cout << "Not Founded\n";
             return false;
         }
 
-        // list has only one element
-        if (head->next == nullptr) {
+        if (head->next == nullptr) { /// if list has one element
             if (head->id == holder_id) {
                 delete head;
                 head = nullptr;
@@ -143,7 +145,7 @@ public:
                 return false;
         }
 
-        // search for element by id
+    /// -----------------------------------------
         holder *temp = head;
         while (temp->next != nullptr && temp->next->id != holder_id)
             temp = temp->next;
