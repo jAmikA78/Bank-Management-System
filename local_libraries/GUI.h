@@ -203,13 +203,13 @@ void login() {
     int x = 15, y = 16;
     char password[25];
     char adminPassword[25] = "1";
-    posXY(25, 12);
-    cout << "The database is password protected.";
+    posXY(31, 12);
+    cout << "ِAdmin Login";
     posXY(25, 13);
-    cout << "Enter valid administrator password.";
+    cout << "Enter valid Admin password.";
     SetColor(17);
     posXY(30, x);
-    cout << "USERNAME:- administrator";
+    cout << "USERNAME:- Admin";
     posXY(30, y);
     cout << "PASSWORD:- ";
     posXY(41, y);
@@ -667,34 +667,4 @@ void boxBorder() {
     for (int i = 1; i < 90; i++) { posXY(i, 6), wcout << (wchar_t) 205; }
 }
 
-#endif //UNTITLED1_GUI_H
-
-
-//        a. Add new branch.
-//        h. Remove Branch.
-//        b. Display Branch.
-//        c. Search for Branch by ID.
-//        =====================================================
-//        a. Add new holder.
-//        b. Remove a holder.
-//        c. Display holder data.
-//        d. Search for holder by Name.
-//        e. Update Holder Information.
-//        f. display Holders of a Branch by id.
-
-/*------- Function Declaration -------*/
-
-
-/*------- Menu -------*/
-
-//        a. Add new branch.                        done
-//        h. Remove Branch.                         done
-//        b. Display Branch.                        done
-//        c. Search for Branch by ID.               done
-//        ==================================================
-//        a. Add new holder.                        done
-//        b. Remove a holder.                       done
-//        c. Display holder data.                   done
-//        d. Search for holder by Name.             done
-//        e. Update Holder Information.             done
-//        f. display Holders of a Branch by id.     NOT DONE
+#endif
