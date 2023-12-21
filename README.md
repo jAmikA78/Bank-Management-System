@@ -16,3 +16,8 @@
 ---
 
 ### Presentation : [Link](https://bit.ly/BMS_Project)
+
+---
+
+### To download and try the program 
+Run this command in terminal `git clone https://github.com/A-3bbas/Bank-Management-System-BMS.git`
