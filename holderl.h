@@ -67,7 +67,7 @@ public:
     }
 
     // insert in the end to read old database
-    void inser_at_last(string id, string name, string address, string branch_id, string balance) {
+    void insert_at_last(string id, string name, string address, string branch_id, string balance) {
         holder *newnode = new holder();
         newnode->id = id;
         newnode->name = name;
@@ -163,11 +163,8 @@ public:
             cout << "Holder ID: " << temp->id << " Holder's name: " << temp->name << " Holder's manager: "
                  << temp->address << " Balance: " << temp->balance << "\nbelongs to the branch with id: "
                  << temp->branch_id << '\n';
-
             temp = temp->next;
-//            cout << "=================================\n";
         }
-//        cout << "=================================\n";
     }
 
     // Update Holder Information.
@@ -175,9 +172,6 @@ public:
         deleteHolder(id);
         insertSorted(id, name, address, branch_id, balance);
     }
-
-    // ========================================================================
-    // Additional Functions
 
     // Display Holders in a branch
     void displayBranchHolders(string branch_id) {
@@ -189,7 +183,6 @@ public:
             }
             temp = temp->next;
         }
-//        cout << "=================================\n";
     }
 
     // Remove all branch holders
