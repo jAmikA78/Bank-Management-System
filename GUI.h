@@ -78,6 +78,10 @@ void using_system() {
 }
 
 void main_window() {
+    ClearConsoleToColors(0, 0);
+    SetConsoleTitle("Bank Management System - BMS");
+    window();
+    boxBorder();
     SetColor(28);
     int choice;
     int x = 2;
@@ -147,6 +151,10 @@ void main_window() {
 }
 
 void main_window2() {
+    ClearConsoleToColors(0, 0);
+    SetConsoleTitle("Bank Management System - BMS");
+    window();
+    boxBorder();
     SetColor(28);
     int choice;
     int x = 2;
@@ -176,7 +184,7 @@ void main_window2() {
                 clearWindow();
                 system("cls");
                 window();
-                main_window2();
+                first_window();
                 break;
             default:
                 return;
@@ -194,16 +202,16 @@ void login() {
     int x = 15, y = 16;
     char password[25];
     char adminPassword[25] = "1";
-    posXY(15, 12);
+    posXY(25, 12);
     cout << "The database is password protected.";
-    posXY(15, 13);
+    posXY(25, 13);
     cout << "Enter valid administrator password.";
     SetColor(17);
-    posXY(20, x);
+    posXY(30, x);
     cout << "USERNAME:- administrator";
-    posXY(20, y);
+    posXY(30, y);
     cout << "PASSWORD:- ";
-    posXY(34, y);
+    posXY(41, y);
     int p = 0;
     do {
         password[p] = getch();
@@ -228,7 +236,10 @@ void login() {
 }
 
 void first_window() {
-
+    ClearConsoleToColors(0, 0);
+    SetConsoleTitle("Bank Management System - BMS");
+    window();
+    boxBorder();
     SetColor(28);
     int choice;
     int posX = 2, posY = 10;
@@ -266,10 +277,12 @@ void addBranch() {
 
     if (strlen(branch_id) != 4) {
         posXY(posX, posY += 2);
+        SetColor(1028);
         cout << "ID must be 4 characters";
     } else {
         if (branchLIST.searchBranchID(branch_id)) {
             posXY(posX, posY += 2);
+            SetColor(1028);
             cout << "Information already exist.";
         } else {
             fflush(stdin);
@@ -295,7 +308,7 @@ void displayBranch() {
     SetColor(10);
     PageTitle(" -- Display Branch info -- ");
     char branch_id[15];
-    int print = 37;
+    int print = 40;
     posXY(print, 10);
     cout << "Enter ID: ";
     fflush(stdin);
@@ -312,6 +325,7 @@ void displayBranch() {
         cout << "Manager: " << info.manager;
     } else {
         posXY(print, 12);
+        SetColor(1028);
         cout << "Sorry, Information not found.";
     }
     SetColor(28);
@@ -329,10 +343,13 @@ void removeBranch() { // this one needs to be handled correctly in the file (han
     gets(n_id);
     posXY(print, 12);
     if (branchLIST.deleteBranch(n_id)) {
+        SetColor(10);
         cout << "Information is deleted successfully.";
         holderLIST.remove_all_holders(n_id);
-    } else
+    } else {
+        SetColor(1028);
         cout << "Branch doesnt exist.";
+    }
     SetColor(28);
 }
 
@@ -340,7 +357,7 @@ void addHolder() {
     clearWindow();
     SetColor(10);
     PageTitle(" -- Add Holder -- ");
-    int print = 37;
+    int print = 40;
     posXY(print, 10);
     cout << "ID: ";
     fflush(stdin);
@@ -358,11 +375,12 @@ void addHolder() {
         cout << "Branch ID: ";
         gets(hd.branch_id);
         posXY(print, 18);
-        if (!branchLIST.search_branch(hd.branch_id))
+        if (!branchLIST.searchBranchID(hd.branch_id))
             cout << "branch holder_id doesnt exist.";
         else {
             cout << "Balance: ";
             gets(hd.balance);
+            SetColor(10);
             posXY(print, 20);
             cout << "Information is added successfully.";
             holderLIST.insertSorted(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
@@ -376,16 +394,20 @@ void removeHolder() {
     SetColor(10);
     PageTitle(" -- Delete a holder by his id -- ");
     char holder_id[15];
-    int print = 37;
+    int print = 40;
     posXY(print, 10);
     cout << "Enter ID: ";
     fflush(stdin);
     gets(holder_id);
     posXY(print, 12);
-    if (holderLIST.deleteHolder(holder_id)) // O(holder)
+    if (holderLIST.deleteHolder(holder_id)) {// O(holder)
+        SetColor(10);
         cout << "Information is deleted successfully.";
-    else
+    }
+    else {
+        SetColor(1028);
         cout << "Holder doesnt exist.";
+    }
     SetColor(28);
 }
 
@@ -400,20 +422,21 @@ void displayHolder() {
     gets(n_id);
     holder info = holderLIST.searchHolderIDAndPrint(n_id); // O(n)
     if (info.id != "-1") {
-        posXY(37, 12);
+        posXY(40, 12);
         cout << "Information is Found.";
-        posXY(37, 14);
+        posXY(40, 14);
         cout << "ID: " << info.id;
-        posXY(37, 15);
+        posXY(40, 15);
         cout << "Name: " << info.name;
-        posXY(37, 16);
+        posXY(40, 16);
         cout << "Address: " << info.address;
-        posXY(37, 17);
+        posXY(40, 17);
         cout << "Branch ID: " << info.branch_id;
-        posXY(37, 18);
+        posXY(40, 18);
         cout << "Balance: $" << info.balance;
     } else {
-        posXY(37, 12);
+        posXY(40, 12);
+        SetColor(1028);
         cout << "Sorry, Information not found.";
     }
     SetColor(28);
@@ -430,20 +453,21 @@ void searchHolderName() {
     gets(n_name);
     holder info = holderLIST.searchHolderNameAndPrint(n_name); // O(n)
     if (info.id != "-1") {
-        posXY(37, 12);
+        posXY(40, 12);
         cout << "Information is Found.";
-        posXY(37, 14);
+        posXY(40, 14);
         cout << "ID: " << info.id;
-        posXY(37, 15);
+        posXY(40, 15);
         cout << "Name: " << info.name;
-        posXY(37, 16);
+        posXY(40, 16);
         cout << "Address: " << info.address;
-        posXY(37, 17);
+        posXY(40, 17);
         cout << "Branch ID: " << info.branch_id;
-        posXY(37, 18);
+        posXY(40, 18);
         cout << "Balance: $" << info.balance;
     } else {
-        posXY(37, 12);
+        posXY(40, 12);
+        SetColor(1028);
         cout << "Sorry, Information not found.";
     }
     SetColor(28);
@@ -473,13 +497,15 @@ void updateHolder() {
         cout << "New Branch ID: ";
         gets(hd.branch_id);
         posXY(print, 18);
-        if (!branchLIST.search_branch(hd.branch_id)) { // O(branch)
+        if (!branchLIST.searchBranchID(hd.branch_id)) {
+            SetColor(1028);// O(branch)
             cout << "branch id doesnt exist.";
         } else {
             cout << "New Balance: ";
             gets(hd.balance);
             posXY(print, 20);
             holderLIST.UpdateHolder(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
+            SetColor(10);
             cout << "Information is updated successfully.";
         }
 
@@ -504,14 +530,14 @@ void displayBranchHolders() {
         int y_pos = 12;
         while (temp != nullptr) { // I wrote this function here cuz I couldn't handle it in the .h file
             if (temp->branch_id == branch_id) {
-                posXY(37, y_pos += 2);
-                cout << "*Holder ID: " << temp->id << "| Holder's name: " << temp->name << "| Holder's manager: "
+                posXY(40, y_pos += 2);
+                cout << "*Holder ID: " << temp->id << "| Holder's name: " << temp->name << "| Holder's address: "
                      << temp->address << "| Balance: $" << temp->balance << '\n';
             }
             temp = temp->next;
         }
     } else {
-        posXY(37, 12);
+        posXY(40, 12);
         cout << "Sorry, Information not found.";
     }
     SetColor(28);

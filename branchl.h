@@ -52,16 +52,6 @@ public:
         }
     }
 
-    // Search for branch by id
-    bool search_branch(string branch_id) {
-        branch *temp = head;
-        while (temp != nullptr) {
-            if (temp->id == branch_id) return true;
-            else temp = temp->next;
-        }
-        return false;
-    }
-
     branch searchBranchAndPrint(string branch_id) {
         branch *temp = head;
 
@@ -74,6 +64,7 @@ public:
         return notFound;
     }
 
+    // search branch by id
     bool searchBranchID(string branch_id) {
         branch *temp = head;
 
@@ -88,7 +79,7 @@ public:
 
     bool deleteBranch(string branch_id) {
         if (isEmptyBranches()) return false;
-        else if (search_branch(branch_id)) {
+        else if (searchBranchID(branch_id)) {
             branch *temp1 = head;
             branch *prev = nullptr;
             if (head->id == branch_id) {

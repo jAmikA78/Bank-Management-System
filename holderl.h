@@ -72,6 +72,7 @@ public:
         newnode->address = address;
         newnode->balance = balance;
         newnode->branch_id = branch_id;
+        newnode->next = nullptr;
 
         //insert first element
         if (head == nullptr) {
@@ -143,15 +144,15 @@ public:
         }
 
         // search for element by id
-        holder *cur = head;
-        while (cur->next != nullptr && cur->next->id != holder_id)
-            cur = cur->next;
-        if (cur->next == nullptr) {
+        holder *temp = head;
+        while (temp->next != nullptr && temp->next->id != holder_id)
+            temp = temp->next;
+        if (temp->next == nullptr) {
             return false;
         }
-        delete cur->next;
-        cur->next = nullptr;
-        last = cur;
+        delete temp->next;
+        temp->next = nullptr;
+        last = temp;
     }
 
     // Display holder data.
@@ -186,22 +187,22 @@ public:
     // Remove all branch holders
     void remove_all_holders(string branch_id) {
 
-        holder *current = head;
+        holder *cur = head;
         holder *prev = nullptr;
 
-        while (current != nullptr) {
-            if (current->branch_id == branch_id) {
+        while (cur != nullptr) {
+            if (cur->branch_id == branch_id) {
                 // If it's the head node, update head
                 if (prev == nullptr)
-                    head = current->next;
+                    head = cur->next;
                 else
-                    prev->next = current->next;
+                    prev->next = cur->next;
 
-                holder *temp = current;
-                current = current->next;
+                holder *temp = cur;
+                cur = cur->next;
                 delete temp;
             } else
-                prev = current, current = current->next;
+                prev = cur, cur = cur->next;
         }
 
     }
