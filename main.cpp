@@ -7,7 +7,7 @@ basic information (ID, Name, Address, Balance). Create a C++ program using
 two singly Linked Lists to perform the following functions.
 
 1- For Branches:-
-a. Add new Branch in sorted order by id.
+a. Add new Branch.
 b. Display Branch by ID.
 c. Display all Branches.
 d. Search for Branch by ID.
@@ -41,7 +41,6 @@ void store_branches_data();
 void store_holders_data();
 
 // main function
-
 int main() {
     restore_branches_data();
     restore_holders_data();
@@ -102,8 +101,8 @@ void store_holders_data() {
 
     holder *temp = holderLIST.head;
     while (temp != nullptr) {
-        holders_data << temp->id << ' ' << temp->name << ' ' << temp->address << ' '
-                     << temp->branch_id << ' ' << temp->balance << '\n';
+        holders_data << temp->id << ' ' << temp->name << ' ' << temp->address <<
+                     ' ' << temp->branch_id << ' ' << temp->balance << '\n';
         temp = temp->next;
     }
     holders_data.close();

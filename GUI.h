@@ -347,7 +347,7 @@ void addHolder() {
     cout << "ID: ";
     fflush(stdin);
     gets(hd.id);
-    if (holderLIST.searchHolderID(hd.id)) {
+    if (!holderLIST.searchHolderID(hd.id)) {
         fflush(stdin);
         strcpy(hd.id, hd.id);
         posXY(print, 12);
