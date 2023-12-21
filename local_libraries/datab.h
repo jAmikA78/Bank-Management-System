@@ -8,7 +8,7 @@
 
 /// ---------------------------------------------- function to restore from database
 void restore_branches_data() {
-    ifstream branches_data("branches_data.txt");
+    ifstream branches_data("../data/branches_data.txt");
     if (!branches_data) {
         cerr << "Error opening branches_data.txt" << endl;
         return;
@@ -21,7 +21,7 @@ void restore_branches_data() {
 }
 
 void restore_holders_data() {
-    ifstream holders_data("holders_data.txt");
+    ifstream holders_data("../data/holders_data.txt");
     if (!holders_data) {
         cerr << "Error opening holders_data.txt" << endl;
         return;
@@ -35,7 +35,7 @@ void restore_holders_data() {
 }
 
 void store_branches_data() {
-    ofstream branches_data("branches_data.txt", ios::trunc);
+    ofstream branches_data("../data/branches_data.txt", ios::trunc);
     if (!branches_data) {
         cerr << "Error opening branches_data.txt for output" << endl;
         return;
@@ -49,7 +49,7 @@ void store_branches_data() {
 }
 
 void store_holders_data() {
-    ofstream holders_data("holders_data.txt", ios::trunc);
+    ofstream holders_data("../data/holders_data.txt", ios::trunc);
     if (!holders_data) {
         cerr << "Error opening holders_data.txt for output" << endl;
         return;

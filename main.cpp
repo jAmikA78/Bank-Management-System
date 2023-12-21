@@ -19,6 +19,7 @@ basic information (ID, Name, Address, Balance).
 ║ 9. display Holders of a Branch by id
 ║ 10. Logout
 
+=========
 note that
 =====================
 admin password = 1234
@@ -31,20 +32,20 @@ admin password = 1234
 ║ 1. Display holder data
 ║ 2. Search for holder by Name
 ║ 3. Add new holder
-║ 4. Logout                                                                               ║                             ║
+║ 4. Logout
 */
 
 /// basic information
 /*
 ===========================================
 all data will be stored in a local Database
-===========================================
+=================================================
 holders will be stored in sorted order by balance
-===========================================
+=================================================
 */
 
-#include "GUI.h"
-#include "datab.h"
+#include "local_libraries/GUI.h"
+#include "local_libraries/datab.h"
 
 using namespace std;
 
