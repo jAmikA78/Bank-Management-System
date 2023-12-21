@@ -80,7 +80,7 @@ void restore_holders_data() {
 }
 
 void store_branches_data() {
-    ofstream branches_data("branches_data.txt");
+    ofstream branches_data("branches_data.txt", ios::trunc);
     if (!branches_data) {
         cerr << "Error opening branches_data.txt for output" << endl;
         return;
