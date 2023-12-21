@@ -87,7 +87,7 @@ void store_branches_data() {
     }
     branch *temp = branchLIST.head;
     while (temp != nullptr) {
-        branches_data << temp->id << " " << temp->name << ' ' << temp->manager << '\n';
+        branches_data << temp->id << ' ' << temp->name << ' ' << temp->manager << '\n';
         temp = temp->next;
     }
     branches_data.close();
