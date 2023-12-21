@@ -170,8 +170,11 @@ public:
 
     // Update Holder Information.
     bool UpdateHolder(string id, string name, string address, string branch_id, string balance) {
-        deleteHolder(id);
-        insertSorted(id, name, address, branch_id, balance);
+        if(deleteHolder(id)) {
+            insertSorted(id, name, address, branch_id, balance);
+            return true;
+        }
+        return false;
     }
 
     // Display Holders in a branch
