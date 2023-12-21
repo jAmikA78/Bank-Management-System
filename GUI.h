@@ -74,6 +74,7 @@ void using_system() {
     SetConsoleTitle("Bank Management System - BMS");
     window();
     first_window();
+    return;
 }
 
 void main_window() {
@@ -139,9 +140,10 @@ void main_window() {
                 first_window();
                 break;
             default:
-                exit(0);
+                return;
         }
     }
+    return;
 }
 
 void main_window2() {
@@ -177,7 +179,7 @@ void main_window2() {
                 main_window2();
                 break;
             default:
-                exit(0);
+                return;
         }
     }
 }
@@ -246,7 +248,7 @@ void first_window() {
                 main_window2();
                 break;
             default:
-                exit(0);
+                return;
         }
     }
 }

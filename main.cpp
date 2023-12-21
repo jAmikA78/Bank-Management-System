@@ -33,7 +33,6 @@ using namespace std;
 
 void restore_branches_data();
 void restore_holders_data();
-void system_control();
 void store_branches_data();
 void store_holders_data();
 
@@ -48,67 +47,50 @@ int main() {
     return 0;
 }
 
-
-// function to using system
-void system_control() {
-    // here is the main code of my system
-}
-
 // function to restore old data base
 void restore_branches_data() {
-    // Read input from branches database
     ifstream branches_data("branches_data.txt");
     if (!branches_data) {
         cerr << "Error opening branches_data.txt" << endl;
         return;
     }
 
-    // Your code to process input from branches_data goes here
 
-    // Close branches_data
     branches_data.close();
-
-    //_____________________________________________________________________
 }
 
 void restore_holders_data() {
-    // Read input from holders_data
     ifstream holders_data("holders_data.txt");
     if (!holders_data) {
         cerr << "Error opening holders_data.txt" << endl;
         return;
     }
-    // Your code to process input from holders_data goes here
 
-    // Close holders_data
+
     holders_data.close();
 }
 
-// store the final database
 void store_branches_data() {
-    // Step 5: Store the output in branches_data
     ofstream branches_data("branches_data.txt");
     if (!branches_data) {
         cerr << "Error opening branches_data.txt for output" << endl;
-        return; // Exit with an error code
+        return;
     }
-
-    // Your code to write output to branches_data goes here
-
-    // Close branches_data
+    branch *temp = branchLIST.head;
+    while (temp != nullptr) {
+        branches_data << "Branch id: " << temp->id << " Name: " << temp->name << " Manager: " << temp->manager << '\n';
+        temp = temp->next;
+    }
     branches_data.close();
 }
 
 void store_holders_data() {
-    //  Store the remaining input in holders_data
     ofstream holders_data("holders_data.txt");
     if (!holders_data) {
         cerr << "Error opening holders_data.txt for output" << endl;
-        return; // Exit with an error code
+        return;
     }
 
-    // Your code to write output to holders_data goes here
 
-    // Close holders_data
     holders_data.close();
 }
