@@ -252,8 +252,6 @@ void first_window() {
         }
     }
 }
-
-
 void addBranch() {
     clearWindow();
     SetColor(10);
