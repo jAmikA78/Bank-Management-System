@@ -201,14 +201,14 @@ void login() {
     SetColor(1028);
     int x = 15, y = 16;
     char password[25];
-    char adminPassword[25] = "1234";
-    posXY(31, 12);
-    cout << "Login as Administrator";
+    char adminPassword[25] = "1";
+    posXY(25, 12);
+    cout << "The database is password protected.";
     posXY(25, 13);
-    cout << "Enter valid Administrator password.";
+    cout << "Enter valid administrator password.";
     SetColor(17);
     posXY(30, x);
-    cout << "USERNAME:- Admin";
+    cout << "USERNAME:- administrator";
     posXY(30, y);
     cout << "PASSWORD:- ";
     posXY(41, y);
@@ -504,9 +504,14 @@ void updateHolder() {
             cout << "New Balance: ";
             gets(hd.balance);
             posXY(print, 20);
-            holderLIST.UpdateHolder(hd.id, hd.name, hd.address, hd.branch_id, hd.balance);
-            SetColor(10);
-            cout << "Information is updated successfully.";
+            if(holderLIST.UpdateHolder(hd.id, hd.name, hd.address, hd.branch_id, hd.balance)) {
+                SetColor(10);
+                cout << "Information is updated successfully.";
+            }
+            else{
+                SetColor(1028);
+                cout << "couldnt update data.";
+            }
         }
 
     } else {
