@@ -18,6 +18,14 @@ A small console-based Bank Management System written in C++ and built with CMake
   - `branches_data.txt`, `holders_data.txt`
 - `cmake-build-debug/` — (generated) build directory created by CLion / CMake + Ninja in this workspace
 
+## Demo
+
+![](./demo.png)
+
+---
+
+## Presentation : [Link](https://bit.ly/BMS_Project)
+
 ## Prerequisites
 
 - CMake (>= 3.10 recommended; repository used CMake 3.25+ in the build directory)
@@ -25,6 +33,14 @@ A small console-based Bank Management System written in C++ and built with CMake
 - Ninja or another build tool (optional; CMake will select a default generator if you don't supply one)
 
 On Windows with WSL or Git Bash (bash.exe) these commands will work well.
+
+## To download and try the program
+
+Run this command in terminal
+
+```bash
+git clone https://github.com/A-3bbas/Bank-Management-System-BMS.git
+```
 
 ## Build instructions (recommended)
 
